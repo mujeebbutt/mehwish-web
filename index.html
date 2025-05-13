@@ -1,0 +1,694 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mehwish Butt Online Tutoring Institute</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@preline/preline@2.0.0/dist/preline.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="text-xl font-bold text-indigo-600">Mehwish Butt</span>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Home</a>
+                    <a href="#about" class="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">About</a>
+                    <a href="#courses" class="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Courses</a>
+                    <a href="#tuition" class="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Tuition</a>
+                    <a href="#contact" class="bg-indigo-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-indigo-700">Contact</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="menu-btn" class="text-gray-500 hover:text-gray-900">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#home" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-indigo-600">Home</a>
+                <a href="#about" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-indigo-600">About</a>
+                <a href="#courses" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-indigo-600">Courses</a>
+                <a href="#tuition" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-indigo-600">Tuition</a>
+                <a href="#contact" class="block px-3 py-2 text-base font-medium text-white bg-indigo-600 rounded-md">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg text-white py-20 md:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="md:w-2/3">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Learn with Mehwish Butt & Team of Expert Tutors</h1>
+                <p class="text-xl mb-8">Get personalized online education for all ages, led by Mehwish Butt with 8+ years of teaching experience. Our interactive, student-focused approach is tailored to your learning style and schedule.</p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#courses" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-md text-lg font-medium text-center">Explore Courses</a>
+                    <a href="#contact" class="bg-white hover:bg-gray-100 text-indigo-600 px-6 py-3 rounded-md text-lg font-medium text-center">Book a Free Demo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- Add this HTML where you want the dashboard -->
+    <section id="dashboard" class="py-16 bg-gray-50 hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12">Student Dashboard</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-xl font-bold mb-4">Your Assignments</h3>
+            <ul id="assignment-list" class="space-y-3"></ul>
+            <form id="assignment-form" class="mt-6">
+                <input type="text" id="assignment-input" placeholder="New assignment" class="px-4 py-2 border rounded">
+                <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded ml-2">Add</button>
+            </form>
+            </div>
+        </div>
+    </section>
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">About Mehwish Butt</h2>
+                <div class="w-20 h-1 bg-indigo-600 mx-auto mt-4"></div>
+            </div>
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1580894732444-8ecded7900b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Mehwish Butt" class="rounded-lg shadow-lg w-full h-auto">
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Qualified & Experienced Educators</h3>
+                    <p class="text-gray-600 mb-6">With over 8 years of combined teaching experience, our team at Mehwish Butt Education Services has successfully guided hundreds of students towards academic excellence. Our personalized learning approaches are tailored to meet the unique needs of each learner.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1 text-indigo-600">
+                                <i class="fas fa-check-circle text-xl"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h4 class="text-lg font-medium text-gray-900">Personalized Attention</h4>
+                                <p class="text-gray-600">We provide one-on-one focus to address various learning styles and challenges effectively.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1 text-indigo-600">
+                                <i class="fas fa-check-circle text-xl"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h4 class="text-lg font-medium text-gray-900">Flexible Scheduling</h4>
+                                <p class="text-gray-600">Enjoy the convenience of scheduling classes at times that suit your schedule, including evenings and weekends.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1 text-indigo-600">
+                                <i class="fas fa-check-circle text-xl"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h4 class="text-lg font-medium text-gray-900">Interactive Learning</h4>
+                                <p class="text-gray-600">Our engaging lessons are designed with practical applications to deepen understanding and foster active learning.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">Our Courses</h2>
+                <div class="w-20 h-1 bg-indigo-600 mx-auto mt-4"></div>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Comprehensive courses designed to help students excel in their academic and professional pursuits.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Computer Courses -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden course-card transition duration-300">
+                    <div class="bg-indigo-100 p-6">
+                        <i class="fas fa-laptop-code text-indigo-600 text-4xl mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-800">Computer Courses</h3>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-indigo-500 mt-1 mr-2"></i>
+                                <span>Basic IT & Computer Skills</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-indigo-500 mt-1 mr-2"></i>
+                                <span>MS Office (Word, Excel, PowerPoint)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-indigo-500 mt-1 mr-2"></i>
+                                <span>Programming (Python/Scratch for kids)</span>
+                            </li>
+                        </ul>
+                        <a href="#contact" class="mt-6 inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium">Enroll Now</a>
+                    </div>
+                </div>
+                
+                <!-- Language Courses -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden course-card transition duration-300">
+                    <div class="bg-indigo-100 p-6">
+                        <i class="fas fa-language text-indigo-600 text-4xl mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-800">Language Courses</h3>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-indigo-500 mt-1 mr-2"></i>
+                                <span>Urdu (Spoken & Written)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-indigo-500 mt-1 mr-2"></i>
+                                <span>English (Grammar, Writing, Speaking)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-indigo-500 mt-1 mr-2"></i>
+                                <span>Arabic Basics</span>
+                            </li>
+                        </ul>
+                        <a href="#contact" class="mt-6 inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium">Enroll Now</a>
+                    </div>
+                </div>
+                
+                <!-- Science & Basic Subjects -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden course-card transition duration-300">
+                    <div class="bg-indigo-100 p-6">
+                        <i class="fas fa-flask text-indigo-600 text-4xl mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-800">Science & Basic Subjects</h3>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-indigo-500 mt-1 mr-2"></i>
+                                <span>Mathematics (Primary to Secondary)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-indigo-500 mt-1 mr-2"></i>
+                                <span>Physics, Chemistry, Biology (O-Level/Matric)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-indigo-500 mt-1 mr-2"></i>
+                                <span>Social Studies & General Knowledge</span>
+                            </li>
+                        </ul>
+                        <a href="#contact" class="mt-6 inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium">Enroll Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tuition Options -->
+    <section id="tuition" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">Tuition Options</h2>
+                <div class="w-20 h-1 bg-indigo-600 mx-auto mt-4"></div>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Flexible learning options to suit your needs and schedule.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- One-on-One Sessions -->
+                <div class="bg-gray-50 rounded-lg shadow-md p-6 text-center hover:shadow-lg transition duration-300">
+                    <div class="bg-indigo-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-user-graduate text-indigo-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">One-on-One Sessions</h3>
+                    <p class="text-gray-600 mb-4">Personalized 1:1 attention tailored to your learning pace and goals.</p>
+                    <p class="text-indigo-600 font-medium">Starting at $20/hour</p>
+                </div>
+
+                <!-- Group Classes -->
+                <div class="bg-gray-50 rounded-lg shadow-md p-6 text-center hover:shadow-lg transition duration-300">
+                    <div class="bg-indigo-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-users text-indigo-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Group Classes</h3>
+                    <p class="text-gray-600 mb-4">Affordable small-group sessions (3-5 students) for collaborative learning.</p>
+                    <p class="text-indigo-600 font-medium">Starting at $10/hour</p>
+                </div>
+
+                <!-- Crash Courses -->
+                <div class="bg-gray-50 rounded-lg shadow-md p-6 text-center hover:shadow-lg transition duration-300">
+                    <div class="bg-indigo-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-bolt text-indigo-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Crash Courses</h3>
+                    <p class="text-gray-600 mb-4">Intensive exam preparation or skill-building over weekends/short periods.</p>
+                    <p class="text-indigo-600 font-medium">Custom pricing</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 bg-indigo-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">What Students & Parents Say</h2>
+                <div class="w-20 h-1 bg-indigo-600 mx-auto mt-4"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Student" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800">Ayesha Khan</h4>
+                            <p class="text-indigo-600 text-sm">Grade 10 Student</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"Mehwish Ma'am made Urdu so easy! I went from a C to an A in just 3 months."</p>
+                    <div class="mt-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Parent" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800">Mr. Ahmed</h4>
+                            <p class="text-indigo-600 text-sm">Parent</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"My son's math grades improved dramatically. The flexible timings are a lifesaver!"</p>
+                    <div class="mt-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Student" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800">Fatima R.</h4>
+                            <p class="text-indigo-600 text-sm">Python Student</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"The computer courses are so practical. I built my first app after 2 months!"</p>
+                    <div class="mt-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Authentication Toggle Buttons -->
+        <div class="text-center mb-6">
+            <button id="show-contact-btn" class="bg-indigo-600 text-white px-4 py-2 rounded-md mr-2">
+                Show Contact Form
+            </button>
+            <button id="show-auth-btn" class="bg-gray-600 text-white px-4 py-2 rounded-md">
+                Student Login/Signup
+            </button>
+        </div>
+
+        <!-- Authentication Form (Initially Hidden) -->
+        <div id="auth-container" class="hidden bg-gray-50 p-8 rounded-lg shadow-md max-w-md mx-auto mb-12">
+            <h3 class="text-2xl font-bold text-center text-gray-800 mb-6">Student Portal</h3>
+            <div class="space-y-4">
+                <div>
+                    <label for="auth-email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" id="auth-email" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="auth-password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" id="auth-password" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div class="flex justify-between">
+                    <button onclick="login()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium">
+                        Login
+                    </button>
+                    <button onclick="signup()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium">
+                        Sign Up
+                    </button>
+                </div>
+                <p id="auth-message" class="text-center text-sm text-red-600 mt-2"></p>
+            </div>
+        </div>
+
+        <!-- Contact Form (Initially Visible) -->
+        <div id="contact-form-container">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">Get in Touch</h2>
+                <div class="w-20 h-1 bg-indigo-600 mx-auto mt-4"></div>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Book a free demo or inquire about courses.</p>
+            </div>
+            <div class="flex flex-col md:flex-row gap-12">
+                <div class="md:w-1/2">
+                    <form id="contact-form" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                            <input type="text" id="name" name="name" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label for="contact-email" class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" id="contact-email" name="email" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700">Subject</label>
+                            <select id="subject" name="subject" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                <option value="">Select a course</option>
+                                <option value="computer">Computer Courses</option>
+                                <option value="urdu">Urdu Language</option>
+                                <option value="english">English Language</option>
+                                <option value="science">Science Subjects</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                            <textarea id="message" name="message" rows="4" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-md text-lg font-medium">
+                                Send Message
+                            </button>
+                        </div>
+                        <p id="form-message" class="text-center text-sm"></p>
+                    </form>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-md h-full">
+                        <h3 class="text-xl font-bold text-gray-800 mb-6">Contact Details</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 mt-1 text-indigo-600">
+                                    <i class="fas fa-envelope text-xl"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h4 class="text-lg font-medium text-gray-900">Email</h4>
+                                    <p class="text-gray-600">mehwish.tutor@example.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 mt-1 text-indigo-600">
+                                    <i class="fas fa-phone-alt text-xl"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h4 class="text-lg font-medium text-gray-900">Phone/WhatsApp</h4>
+                                    <p class="text-gray-600">+92 300 1234567</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 mt-1 text-indigo-600">
+                                    <i class="fas fa-clock text-xl"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h4 class="text-lg font-medium text-gray-900">Hours</h4>
+                                    <p class="text-gray-600">Mon-Sat: 9 AM - 8 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8">
+                            <h4 class="text-lg font-medium text-gray-900 mb-4">Follow Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="text-indigo-600 hover:text-indigo-800">
+                                    <i class="fab fa-facebook-f text-2xl"></i>
+                                </a>
+                                <a href="#" class="text-indigo-600 hover:text-indigo-800">
+                                    <i class="fab fa-youtube text-2xl"></i>
+                                </a>
+                                <a href="#" class="text-indigo-600 hover:text-indigo-800">
+                                    <i class="fab fa-instagram text-2xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Toggle between contact form and auth form
+    document.getElementById('show-auth-btn').addEventListener('click', function() {
+        document.getElementById('auth-container').classList.remove('hidden');
+        document.getElementById('contact-form-container').classList.add('hidden');
+        this.classList.add('bg-indigo-600');
+        document.getElementById('show-contact-btn').classList.remove('bg-indigo-600');
+        document.getElementById('show-contact-btn').classList.add('bg-gray-600');
+    });
+
+    document.getElementById('show-contact-btn').addEventListener('click', function() {
+        document.getElementById('auth-container').classList.add('hidden');
+        document.getElementById('contact-form-container').classList.remove('hidden');
+        this.classList.add('bg-indigo-600');
+        document.getElementById('show-auth-btn').classList.remove('bg-indigo-600');
+        document.getElementById('show-auth-btn').classList.add('bg-gray-600');
+    });
+
+    // Firebase Authentication
+    function login() {
+        const email = document.getElementById('auth-email').value;
+        const password = document.getElementById('auth-password').value;
+        const authMessage = document.getElementById('auth-message');
+        
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .then(() => {
+                authMessage.textContent = 'Login successful! Redirecting...';
+                authMessage.classList.remove('text-red-600');
+                authMessage.classList.add('text-green-600');
+                setTimeout(() => {
+                    document.getElementById('dashboard').classList.remove('hidden');
+                    window.location.hash = '#dashboard';
+                }, 1000);
+            })
+            .catch(error => {
+                authMessage.textContent = error.message;
+                authMessage.classList.remove('text-green-600');
+                authMessage.classList.add('text-red-600');
+            });
+    }
+
+    function signup() {
+        const email = document.getElementById('auth-email').value;
+        const password = document.getElementById('auth-password').value;
+        const authMessage = document.getElementById('auth-message');
+        
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then(() => {
+                authMessage.textContent = 'Account created successfully!';
+                authMessage.classList.remove('text-red-600');
+                authMessage.classList.add('text-green-600');
+            })
+            .catch(error => {
+                authMessage.textContent = error.message;
+                authMessage.classList.remove('text-green-600');
+                authMessage.classList.add('text-red-600');
+            });
+    }
+
+    // Contact Form Submission
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formMessage = document.getElementById('form-message');
+        
+        // Get form values
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('contact-email').value;
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value;
+        
+        // Save to Firestore
+        db.collection('contacts').add({
+            name,
+            email,
+            subject,
+            message,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        })
+        .then(() => {
+            formMessage.textContent = 'Message sent successfully!';
+            formMessage.classList.remove('text-red-600');
+            formMessage.classList.add('text-green-600');
+            document.getElementById('contact-form').reset();
+        })
+        .catch(error => {
+            formMessage.textContent = 'Error: ' + error.message;
+            formMessage.classList.remove('text-green-600');
+            formMessage.classList.add('text-red-600');
+        });
+    });
+    // Dashboard Functionality
+auth.onAuthStateChanged(user => {
+  if (user) {
+    // Load assignments when user logs in
+    db.collection("assignments")
+      .where("userId", "==", user.uid)
+      .orderBy("timestamp", "desc")
+      .onSnapshot(snapshot => {
+        const list = document.getElementById("assignment-list");
+        list.innerHTML = "";
+        snapshot.forEach(doc => {
+          const assignment = doc.data();
+          list.innerHTML += `
+            <li class="flex justify-between items-center p-3 bg-gray-50 rounded">
+              <span>${assignment.text}</span>
+              <button onclick="deleteAssignment('${doc.id}')" class="text-red-500">
+                <i class="fas fa-trash"></i>
+              </button>
+            </li>
+          `;
+        });
+      });
+  }
+});
+
+// Add new assignment
+document.getElementById("assignment-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const text = document.getElementById("assignment-input").value;
+  const user = auth.currentUser;
+  
+  if (text.trim() && user) {
+    db.collection("assignments").add({
+      userId: user.uid,
+      text: text.trim(),
+      completed: false,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(() => {
+      document.getElementById("assignment-input").value = "";
+    });
+  }
+});
+
+// Delete assignment
+function deleteAssignment(id) {
+  if (confirm("Delete this assignment?")) {
+    db.collection("assignments").doc(id).delete();
+  }
+}
+function logout() {
+  auth.signOut().then(() => {
+    document.getElementById('dashboard').classList.add('hidden');
+    window.location.hash = '#contact';
+    alert('Logged out successfully');
+  });
+}
+</script>
+    <!-- Student Dashboard (Initially Hidden) -->
+<section id="dashboard" class="py-16 bg-gray-50 hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl font-bold text-center mb-12">Student Dashboard</h2>
+    
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-bold mb-4">Your Assignments</h3>
+      <ul id="assignment-list" class="space-y-3"></ul>
+      
+      <form id="assignment-form" class="mt-6">
+        <input type="text" id="assignment-input" placeholder="New assignment" 
+               class="px-4 py-2 border rounded">
+        <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded ml-2">
+          Add
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="text-center mt-6">
+  <button onclick="logout()" class="text-red-600 hover:text-red-800 font-medium">
+    
+    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+  </button>
+</div>
+</section>
+      
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Mehwish Butt</h3>
+                    <p class="text-gray-400">Personalized online tutoring for academic excellence since 2015.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="#courses" class="text-gray-400 hover:text-white">Courses</a></li>
+                        <li><a href="#tuition" class="text-gray-400 hover:text-white">Tuition Options</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Courses</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Computer Courses</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Urdu Language</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Science Subjects</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 Mehwish Butt Online Tutoring Institute. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+  apiKey: "AlzaSyAzIhF90avA0snSAOgCqRlKG49lRI2xTuk",
+  authDomain: "mehwish-tutoring.firebaseapp.com",
+  projectId: "mehwish-tutoring",
+  storageBucket: "mehwish-tutoring.appspot.com",
+  messagingSenderId: "163983660579",
+  appId: "1:163983660579:web:3f13ba6f987db6c6ba8396" // You still need to copy this from Firebase under your Web App settings
+};
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+</script>
+
+</body>
+</html>
