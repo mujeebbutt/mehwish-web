@@ -67,3 +67,9 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+
+# Python & Backend
+*.db
+student_data.db
+__pycache__/
+public/secret.py
