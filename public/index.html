@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="description"
+        content="Mehwish Online Institute offers personalized online education. Enroll today for O/A Levels, Science, and more!" />
+    <title>Mehwish Online Institute</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-fixed-variant": "#a03a0f",
+                        "on-background": "#2d3335",
+                        "outline": "#767c7e",
+                        "on-surface-variant": "#5a6062",
+                        "on-tertiary": "#f8f8ff",
+                        "inverse-on-surface": "#9b9d9e",
+                        "surface-container": "#ebeef0",
+                        "on-error-container": "#6e0a12",
+                        "tertiary-container": "#b8d0f9",
+                        "primary-dim": "#005b6d",
+                        "on-primary-fixed": "#003843",
+                        "on-secondary-container": "#933004",
+                        "on-tertiary-fixed-variant": "#385072",
+                        "tertiary-fixed-dim": "#aac2ea",
+                        "secondary-fixed-dim": "#ffc8b6",
+                        "error-container": "#fa746f",
+                        "error": "#a83836",
+                        "primary-fixed-dim": "#56d0ef",
+                        "tertiary-dim": "#3c5476",
+                        "tertiary-fixed": "#b8d0f9",
+                        "on-error": "#fff7f6",
+                        "background": "#f8f9fa",
+                        "secondary": "#a53d12",
+                        "on-secondary": "#fff7f5",
+                        "error-dim": "#67040d",
+                        "surface-variant": "#dee3e6",
+                        "inverse-primary": "#66defe",
+                        "surface-tint": "#00687c",
+                        "inverse-surface": "#0c0f10",
+                        "on-surface": "#2d3335",
+                        "primary-fixed": "#66defe",
+                        "primary": "#00687c",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e5e9eb",
+                        "surface-container-low": "#f1f4f5",
+                        "secondary-dim": "#953205",
+                        "secondary-fixed": "#ffdbcf",
+                        "surface": "#f8f9fa",
+                        "on-tertiary-fixed": "#193353",
+                        "on-tertiary-container": "#2e4768",
+                        "outline-variant": "#adb3b5",
+                        "surface-container-highest": "#dee3e6",
+                        "surface-dim": "#d5dbdd",
+                        "on-primary-fixed-variant": "#005768",
+                        "primary-container": "#66defe",
+                        "surface-bright": "#f8f9fa",
+                        "on-primary-container": "#004d5c",
+                        "tertiary": "#486083",
+                        "secondary-container": "#ffdbcf",
+                        "on-secondary-fixed": "#752300",
+                        "on-primary": "#f0fbff"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .text-yellow-400 .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .bg-grid-pattern {
+            background-image: radial-gradient(#00A3C1 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+            opacity: 0.1;
+        }
+
+        .bg-blob {
+            position: absolute;
+            border-radius: 9999px;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.08;
+            background-color: #00A3C1;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container overflow-x-hidden">
+    <!-- Subtle Background Decorations -->
+    <div class="fixed inset-0 pointer-events-none -z-10">
+        <div class="bg-blob w-[500px] h-[500px] -top-64 -left-32"></div>
+        <div class="bg-blob w-[600px] h-[600px] top-1/2 -right-64"></div>
+        <div class="bg-blob w-[400px] h-[400px] -bottom-32 left-1/4"></div>
+        <div class="absolute inset-0 bg-grid-pattern"></div>
+    </div>
+    <!-- Header Section -->
+    <header class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-surface-container">
+        <div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+            <a href="#" class="flex items-center gap-2 relative z-10 group">
+                <img src="logo.png" alt="Mehwish Online Institute Logo"
+                    class="h-10 md:h-12 w-auto object-contain transition-transform group-hover:scale-105">
+                <span class="text-xl md:text-2xl font-extrabold text-[#00A3C1] tracking-tighter font-headline">Mehwish
+                    Online Institute</span>
+            </a>
+            <nav
+                class="hidden md:flex items-center gap-8 font-['Plus_Jakarta_Sans'] font-semibold text-sm tracking-tight">
+                <a class="text-[#00A3C1] border-b-2 border-[#00A3C1] pb-1 hover:text-[#00A3C1] transition-colors duration-300"
+                    href="#">Home</a>
+                <a class="text-slate-600 hover:text-[#00A3C1] transition-colors duration-300" href="#about">About</a>
+                <a class="text-slate-600 hover:text-[#00A3C1] transition-colors duration-300"
+                    href="#Tuition">Tuition</a>
+                <a class="text-slate-600 hover:text-[#00A3C1] transition-colors duration-300"
+                    href="#courses">Courses</a>
+                <a class="text-slate-600 hover:text-[#00A3C1] transition-colors duration-300"
+                    href="#testimonials">Reviews</a>
+            </nav>
+            <div class="flex items-center gap-6">
+                <a class="font-['Plus_Jakarta_Sans'] font-semibold text-sm text-slate-600 hover:text-[#00A3C1] transition-colors"
+                    href="enrollment.html">Enroll</a>
+                <a href="admin/adminlogin.html"
+                    class="border-2 border-[#00A3C1] text-[#00A3C1] px-6 py-2 rounded-full font-['Plus_Jakarta_Sans'] font-bold text-sm hover:bg-[#00A3C1] hover:text-white transition-all">
+                    Teacher Dashboard
+                </a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <!-- Hero Section -->
+        <section class="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-12 items-center">
+                <div class="relative z-10">
+                    <h1
+                        class="font-headline text-5xl md:text-7xl font-extrabold text-on-surface leading-[1.1] tracking-tight mb-6">
+                        Mehwish Online Institute
+                    </h1>
+                    <p class="text-on-surface-variant text-lg md:text-xl leading-relaxed mb-10 max-w-lg">
+                        Give Your Child the Right Learning Support Join Mehwish Butt &amp; her expert team for
+                        personalized online education. With 8+ years of experience, we focus on understanding each
+                        student and helping them grow with confidence.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="enrollment.html"
+                            class="inline-block px-8 py-4 bg-[#00A3C1] text-white rounded-full font-bold shadow-xl shadow-[#00A3C1]/30 hover:translate-y-[-2px] transition-transform">
+                            Enroll Now
+                        </a>
+                        <a href="login.html"
+                            class="inline-block px-8 py-4 bg-white text-on-surface border border-outline-variant rounded-full font-bold hover:bg-surface-container-high transition-colors">
+                            Student Login
+                        </a>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="absolute -top-12 -right-12 w-64 h-64 bg-[#00A3C1]/10 rounded-full blur-3xl"></div>
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl">
+                        <img src="hero.png" alt="Students learning online"
+                            class="rounded-3xl shadow-2xl relative z-10 w-full object-cover h-[500px]" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- About Mehwish Butt Section -->
+        <section class="py-24 relative" id="about">
+            <div class="max-w-7xl mx-auto px-8">
+                <div class="text-center mb-16">
+                    <h2 class="font-headline text-4xl font-extrabold text-[#00A3C1]">About Mehwish Butt</h2>
+                    <div class="w-24 h-1 bg-[#00A3C1] mx-auto mt-4 rounded-full"></div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-16 items-start">
+                    <div
+                        class="relative bg-white border border-surface-container rounded-3xl p-8 flex justify-center shadow-lg">
+                        <img alt="Illustrated portrait of an educator at a laptop" class="max-w-full h-auto rounded-xl"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3KocL1dE_jf1PshYIk2clP4afqjHO1Q535Jfp4k4mR42v4FfHu5FekPTUgeRnyw1M-Oznd-SmhO13jmlGsQ6rT2WGepjyRx_wE6WkSMSU5qneNMVv_JPKarh50grImwXEFcVAMBbvnWZNOglJTkro7XjAjW9dGFuuxdIK1ERuseilDb8xZZlLiryVrjPDZJM-l-T1JmjHwv5LLPyZfcPsWWQDjMmZybdHqvWBxb_cwm0n3tOxk_NPxhYYwa8mbe2-sGt9LUxAgKY" />
+                    </div>
+                    <div>
+                        <h3 class="font-headline text-2xl font-extrabold mb-4">Qualified &amp; Experienced Educator</h3>
+                        <p class="text-on-surface-variant mb-8">
+                            At Mehwish Online Institute, we have over 8+ years of teaching experience, helping students
+                            achieve academic success. We focus on providing high-quality education with a personalized
+                            approach tailored to each student's needs.
+                        </p>
+                        <ul class="space-y-6">
+                            <li class="flex gap-4">
+                                <div
+                                    class="flex-shrink-0 w-6 h-6 rounded-full bg-[#00A3C1] flex items-center justify-center text-white">
+                                    <span class="material-symbols-outlined text-sm">check</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Personalized Attention</h4>
+                                    <p class="text-sm text-on-surface-variant">Every student receives individual
+                                        attention based on their learning style. We help students overcome challenges
+                                        and build confidence in their studies.</p>
+                                </div>
+                            </li>
+                            <li class="flex gap-4">
+                                <div
+                                    class="flex-shrink-0 w-6 h-6 rounded-full bg-[#00A3C1] flex items-center justify-center text-white">
+                                    <span class="material-symbols-outlined text-sm">check</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Flexible Scheduling</h4>
+                                    <p class="text-sm text-on-surface-variant">We offer flexible class timings,
+                                        including evenings and weekends, so students can learn at their convenience.</p>
+                                </div>
+                            </li>
+                            <li class="flex gap-4">
+                                <div
+                                    class="flex-shrink-0 w-6 h-6 rounded-full bg-[#00A3C1] flex items-center justify-center text-white">
+                                    <span class="material-symbols-outlined text-sm">check</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Interactive Learning</h4>
+                                    <p class="text-sm text-on-surface-variant">Our teaching approach is interactive and
+                                        engaging, using practical examples and activities to make learning easy,
+                                        enjoyable, and effective.</p>
+                                </div>
+                            </li>
+                            <li class="flex gap-4">
+                                <div
+                                    class="flex-shrink-0 w-6 h-6 rounded-full bg-[#00A3C1] flex items-center justify-center text-white">
+                                    <span class="material-symbols-outlined text-sm">check</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">All Subjects Covered</h4>
+                                    <p class="text-sm text-on-surface-variant">We offer expert teaching in all major
+                                        subjects through our team of qualified tutors, tailored to each student's needs
+                                        and curriculum. Including: Math • English • Urdu • Science • Computer • and more
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="flex gap-4">
+                                <div
+                                    class="flex-shrink-0 w-6 h-6 rounded-full bg-[#00A3C1] flex items-center justify-center text-white">
+                                    <span class="material-symbols-outlined text-sm">check</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Classes Available</h4>
+                                    <p class="text-sm text-on-surface-variant">Grade 1 to GCSE Level • Online Classes
+                                        Available</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Tuition Options Section -->
+        <section id="Tuition" class="py-24 bg-surface-container-low/50 relative">
+            <div class="max-w-7xl mx-auto px-8 relative z-10">
+                <div class="text-center mb-16">
+                    <h2 class="font-headline text-4xl font-extrabold mb-4">Tuition Options</h2>
+                    <p class="text-on-surface-variant max-w-2xl mx-auto">At Mehwish Online Institute, we provide
+                        flexible and affordable learning options designed to meet the needs of every student.</p>
+                    <div class="w-24 h-1 bg-[#00A3C1] mx-auto mt-6 rounded-full"></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                    <div
+                        class="bg-white p-8 rounded-2xl shadow-sm text-center border border-surface-container hover:border-[#00A3C1]/40 transition-all hover:shadow-md">
+                        <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="material-symbols-outlined text-3xl text-[#00A3C1]">school</span>
+                        </div>
+                        <h3 class="font-headline text-xl font-bold mb-4">One-on-One Classes</h3>
+                        <p class="text-on-surface-variant text-sm mb-6">Receive personalized 1:1 guidance focused on
+                            your learning pace, strengths, and academic goals. Ideal for students who need extra
+                            attention and faster improvement.</p>
+                        <p class="text-[#00A3C1] font-bold text-sm">Custom Pricing Available</p>
+                    </div>
+                    <div
+                        class="bg-white p-8 rounded-2xl shadow-sm text-center border border-surface-container hover:border-[#00A3C1]/40 transition-all hover:shadow-md">
+                        <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="material-symbols-outlined text-3xl text-[#00A3C1]">groups</span>
+                        </div>
+                        <h3 class="font-headline text-xl font-bold mb-4">Small Group Classes</h3>
+                        <p class="text-on-surface-variant text-sm mb-6">Learn in interactive small groups (3–5
+                            students), encouraging collaboration, questions, and confidence building.</p>
+                        <p class="text-[#00A3C1] font-bold text-sm">Custom Pricing Available</p>
+                    </div>
+                    <div
+                        class="bg-white p-8 rounded-2xl shadow-sm text-center border border-surface-container hover:border-[#00A3C1]/40 transition-all hover:shadow-md">
+                        <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="material-symbols-outlined text-3xl text-[#00A3C1]">bolt</span>
+                        </div>
+                        <h3 class="font-headline text-xl font-bold mb-4">Crash / Short Courses</h3>
+                        <p class="text-on-surface-variant text-sm mb-6">Intensive short-term courses for exam
+                            preparation, revision, or quick skill development. Perfect for last-minute preparation.</p>
+                        <p class="text-[#00A3C1] font-bold text-sm">Custom Pricing Available</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Our Courses Section -->
+        <section id="courses" class="py-24 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-8 relative z-10">
+                <div class="text-center mb-16">
+                    <h2 class="font-headline text-4xl font-extrabold mb-4">Our Courses</h2>
+                    <p class="text-on-surface-variant max-w-2xl mx-auto">At Mehwish Online Institute, we offer a variety
+                        of courses designed to help students build strong academic skills and achieve success.</p>
+                    <div class="w-24 h-1 bg-[#00A3C1] mx-auto mt-6 rounded-full"></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                    <!-- Computer Courses -->
+                    <div
+                        class="bg-white rounded-3xl p-8 border border-surface-container shadow-sm hover:shadow-lg transition-shadow">
+                        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-6">
+                            <span class="material-symbols-outlined text-[#00A3C1]">terminal</span>
+                        </div>
+                        <h3 class="font-headline text-xl font-bold mb-2">Computer Courses</h3>
+                        <p class="text-on-surface-variant text-sm mb-6">Build essential digital skills for school and
+                            everyday life.</p>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center gap-3 text-sm"><span
+                                    class="material-symbols-outlined text-[#00A3C1] text-lg">done</span> Basic IT &amp;
+                                Computer Skills</li>
+                            <li class="flex items-center gap-3 text-sm"><span
+                                    class="material-symbols-outlined text-[#00A3C1] text-lg">done</span> MS Office
+                                (Word, Excel, PowerPoint)</li>
+                            <li class="flex items-center gap-3 text-sm"><span
+                                    class="material-symbols-outlined text-[#00A3C1] text-lg">done</span> Programming for
+                                Kids (Python / Scratch)</li>
+                        </ul>
+                    </div>
+                    <!-- Language Courses -->
+                    <div
+                        class="bg-white rounded-3xl p-8 border border-surface-container shadow-sm hover:shadow-lg transition-shadow">
+                        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-6">
+                            <span class="material-symbols-outlined text-[#00A3C1]">translate</span>
+                        </div>
+                        <h3 class="font-headline text-xl font-bold mb-2">Language Courses</h3>
+                        <p class="text-on-surface-variant text-sm mb-6">Improve communication and language proficiency.
+                        </p>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center gap-3 text-sm"><span
+                                    class="material-symbols-outlined text-[#00A3C1] text-lg">done</span> Urdu (Reading,
+                                Writing &amp; Speaking)</li>
+                            <li class="flex items-center gap-3 text-sm"><span
+                                    class="material-symbols-outlined text-[#00A3C1] text-lg">done</span> English
+                                (Grammar, Writing &amp; Speaking)</li>
+                            <li class="flex items-center gap-3 text-sm"><span
+                                    class="material-symbols-outlined text-[#00A3C1] text-lg">done</span> Arabic Basics
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Science Section -->
+                    <div
+                        class="bg-white rounded-3xl p-8 border border-surface-container shadow-sm hover:shadow-lg transition-shadow">
+                        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-6">
+                            <span class="material-symbols-outlined text-[#00A3C1]">science</span>
+                        </div>
+                        <h3 class="font-headline text-xl font-bold mb-2">Science &amp; Subjects</h3>
+                        <p class="text-on-surface-variant text-sm mb-6">Strengthen core academic knowledge for school
+                            success.</p>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center gap-3 text-sm"><span
+                                    class="material-symbols-outlined text-[#00A3C1] text-lg">done</span> Mathematics
+                                (Primary to Secondary Level)</li>
+                            <li class="flex items-center gap-3 text-sm"><span
+                                    class="material-symbols-outlined text-[#00A3C1] text-lg">done</span> Physics,
+                                Chemistry, Biology (O-Level / Matric)</li>
+                            <li class="flex items-center gap-3 text-sm"><span
+                                    class="material-symbols-outlined text-[#00A3C1] text-lg">done</span> Social Studies
+                                &amp; General Knowledge</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-24 relative">
+            <div class="max-w-7xl mx-auto px-8 relative z-10">
+                <div class="text-center mb-16">
+                    <h2 class="font-headline text-4xl font-extrabold mb-4">What Students & Parents Say</h2>
+                    <div class="w-24 h-1 bg-[#00A3C1] mx-auto rounded-full"></div>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div
+                        class="p-8 bg-white rounded-3xl shadow-sm border border-surface-container hover:border-[#00A3C1]/20 transition-all hover:shadow-md">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div
+                                class="w-12 h-12 rounded-full bg-blue-50 text-[#00A3C1] flex items-center justify-center font-bold">
+                                AS</div>
+                            <div>
+                                <h4 class="font-bold">Aysha Sadiqa</h4>
+                                <p class="text-xs text-on-surface-variant">Student (UK)</p>
+                            </div>
+                        </div>
+                        <p class="text-on-surface-variant text-sm italic mb-6 leading-relaxed">
+                            "My teacher is the best because she always makes learning fun and exciting. She explains
+                            things clearly, helps me when I am stuck, and never gives up on anyone. I feel lucky to have
+                            such a great teacher who cares about me."
+                        </p>
+                        <div class="flex text-yellow-400">
+                            <span class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span>
+                        </div>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div
+                        class="p-8 bg-white rounded-3xl shadow-sm border border-surface-container hover:border-[#00A3C1]/20 transition-all hover:shadow-md">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div
+                                class="w-12 h-12 rounded-full bg-blue-50 text-[#00A3C1] flex items-center justify-center font-bold">
+                                <span class="material-symbols-outlined text-lg">person</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Parent of 8-year-old</h4>
+                                <p class="text-xs text-on-surface-variant">Maths Tutoring</p>
+                            </div>
+                        </div>
+                        <p class="text-on-surface-variant text-sm italic mb-6 leading-relaxed">
+                            "We were worried parents as she was lagging behind in maths skills. Mehwish helped our
+                            daughter grow and tailored her mathematics skills. Our daughter performed really well in the
+                            NAPLAN tests Alhamdolillah."
+                        </p>
+                        <div class="flex text-yellow-400">
+                            <span class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span>
+                        </div>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div
+                        class="p-8 bg-white rounded-3xl shadow-sm border border-surface-container hover:border-[#00A3C1]/20 transition-all hover:shadow-md">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div
+                                class="w-12 h-12 rounded-full bg-blue-50 text-[#00A3C1] flex items-center justify-center font-bold">
+                                <span class="material-symbols-outlined text-lg">person</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Proud Parent</h4>
+                                <p class="text-xs text-on-surface-variant">Urdu Student</p>
+                            </div>
+                        </div>
+                        <p class="text-on-surface-variant text-sm italic mb-6 leading-relaxed">
+                            "Mehwish Butt has been my son's teacher for the past 2 years and his Urdu has improved
+                            drastically MA SHA ALLAH. His grades are now A and A* rising all the way from Cs and Ds!"
+                        </p>
+                        <div class="flex text-yellow-400">
+                            <span class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 4 (Restored from previous) -->
+                    <div
+                        class="p-8 bg-white rounded-3xl shadow-sm border border-surface-container hover:border-[#00A3C1]/20 transition-all hover:shadow-md">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div
+                                class="w-12 h-12 rounded-full bg-blue-50 text-[#00A3C1] flex items-center justify-center font-bold">
+                                <span class="material-symbols-outlined text-lg">school</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Maths Student</h4>
+                                <p class="text-xs text-on-surface-variant">Level 2</p>
+                            </div>
+                        </div>
+                        <p class="text-on-surface-variant text-sm italic mb-6 leading-relaxed">
+                            "Pleased to share that my child has now passed his Level 2 Maths. He felt more confident
+                            going into the exam, and your lessons were clearly helpful. We truly appreciate the role you
+                            played in this milestone preparing him."
+                        </p>
+                        <div class="flex text-yellow-400">
+                            <span class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span>
+                        </div>
+                    </div>
+                    <!-- Testimonial 5 (Restored from previous) -->
+                    <div
+                        class="p-8 bg-white rounded-3xl shadow-sm border border-surface-container hover:border-[#00A3C1]/20 transition-all hover:shadow-md">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div
+                                class="w-12 h-12 rounded-full bg-blue-50 text-[#00A3C1] flex items-center justify-center font-bold">
+                                <span class="material-symbols-outlined text-lg">favorite</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Grateful Parent</h4>
+                                <p class="text-xs text-on-surface-variant">Online Classes</p>
+                            </div>
+                        </div>
+                        <p class="text-on-surface-variant text-sm italic mb-6 leading-relaxed">
+                            "Miss aap ne mere bachon ko bht payar aur lagan se parhaya. Mashallah mere bachon ko aap ki
+                            mehnat ne is qabil bana diya hai ke wo apni class me position le rahe hain. Thanks a lot!"
+                        </p>
+                        <div class="flex text-yellow-400">
+                            <span class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span>
+                        </div>
+                    </div>
+                    <!-- Testimonial 6 (Restored from previous) -->
+                    <div
+                        class="p-8 bg-white rounded-3xl shadow-sm border border-surface-container hover:border-[#00A3C1]/20 transition-all hover:shadow-md">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div
+                                class="w-12 h-12 rounded-full bg-blue-50 text-[#00A3C1] flex items-center justify-center font-bold">
+                                <span class="material-symbols-outlined text-lg">menu_book</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Young Learner</h4>
+                                <p class="text-xs text-on-surface-variant">Maths Session</p>
+                            </div>
+                        </div>
+                        <p class="text-on-surface-variant text-sm italic mb-6 leading-relaxed">
+                            "I love learning maths with you. Thank you for teaching me. It is very interactive and your
+                            English is very good. I enjoy the sessions with you a lot!"
+                        </p>
+                        <div class="flex text-yellow-400">
+                            <span class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span><span
+                                class="material-symbols-outlined fill-current text-sm">star</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- CTA Section -->
+        <section class="pt-24 pb-0 relative">
+            <div class="max-w-7xl mx-auto px-8">
+                <div class="bg-[#00A3C1] rounded-t-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full -mr-48 -mt-48 blur-3xl"></div>
+                    <div class="absolute bottom-0 left-0 w-96 h-96 bg-black/5 rounded-full -ml-48 -mb-48 blur-3xl">
+                    </div>
+                    <div class="relative z-10 max-w-2xl mx-auto text-white">
+                        <h2 class="font-headline text-4xl md:text-6xl font-extrabold mb-8 tracking-tight">Ready to start
+                            learning?</h2>
+                        <p class="text-white/90 text-lg md:text-xl mb-12">Join our student community and start your
+                            journey towards academic excellence today.</p>
+                        <a href="enrollment.html"
+                            class="inline-block px-10 py-5 bg-white text-[#00A3C1] rounded-full font-black text-lg shadow-xl hover:scale-105 active:scale-95 transition-all">
+                            Enroll Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Redesigned Footer Section -->
+    <footer class="w-full bg-[#f1f4f5] text-on-surface pt-20 pb-12 border-t border-surface-container">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="text-2xl font-black text-[#00A3C1] mb-6 font-headline tracking-tighter">Mehwish Butt
+                    </div>
+                    <p class="text-sm text-on-surface-variant leading-relaxed mb-8">
+                        Empowering students globally with personalized, high-quality online education tailored to
+                        individual learning styles.
+                    </p>
+                    <div class="flex gap-3">
+                        <a class="w-10 h-10 rounded-full bg-white border border-surface-container flex items-center justify-center text-[#00A3C1] hover:bg-[#00A3C1] hover:text-white transition-all shadow-sm"
+                            href="https://www.facebook.com/mehwish.butt.121957" target="_blank">
+                            <span class="material-symbols-outlined text-lg">public</span>
+                        </a>
+                        <a class="w-10 h-10 rounded-full bg-white border border-surface-container flex items-center justify-center text-[#00A3C1] hover:bg-[#00A3C1] hover:text-white transition-all shadow-sm"
+                            href="https://www.instagram.com/mehwish.tutor/?__pwa=1" target="_blank">
+                            <span class="material-symbols-outlined text-lg">camera</span>
+                        </a>
+                        <a class="w-10 h-10 rounded-full bg-white border border-surface-container flex items-center justify-center text-[#00A3C1] hover:bg-[#00A3C1] hover:text-white transition-all shadow-sm"
+                            href="mailto:mehwishbutt6060@gmail.com">
+                            <span class="material-symbols-outlined text-lg">mail</span>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm uppercase tracking-widest text-[#00A3C1] mb-6">Quick Links</h4>
+                    <nav class="flex flex-col gap-4 text-sm font-medium">
+                        <a class="text-on-surface-variant hover:text-[#00A3C1] transition-colors" href="#">Home</a>
+                        <a class="text-on-surface-variant hover:text-[#00A3C1] transition-colors"
+                            href="#courses">Courses</a>
+                        <a class="text-on-surface-variant hover:text-[#00A3C1] transition-colors"
+                            href="login.html">Student Login</a>
+                        <a class="text-on-surface-variant hover:text-[#00A3C1] transition-colors"
+                            href="admin/adminlogin.html">Teacher Login</a>
+                    </nav>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm uppercase tracking-widest text-[#00A3C1] mb-6">Support</h4>
+                    <nav class="flex flex-col gap-4 text-sm font-medium">
+                        <a class="text-on-surface-variant hover:text-[#00A3C1] transition-colors" href="#">Help
+                            Center</a>
+                        <a class="text-on-surface-variant hover:text-[#00A3C1] transition-colors" href="#">Privacy
+                            Policy</a>
+                        <a class="text-on-surface-variant hover:text-[#00A3C1] transition-colors" href="#">Terms of
+                            Service</a>
+                        <a class="text-on-surface-variant hover:text-[#00A3C1] transition-colors" href="#">Contact
+                            Us</a>
+                    </nav>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm uppercase tracking-widest text-[#00A3C1] mb-6">Contact Us</h4>
+                    <div class="flex flex-col gap-5 text-sm font-medium">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-[#00A3C1] text-sm">call</span>
+                            </div>
+                            <span class="text-on-surface-variant">+92 314 6602571</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-[#00A3C1] text-sm">mail</span>
+                            </div>
+                            <span class="text-on-surface-variant">mehwishbutt6060@gmail.com</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-[#00A3C1] text-sm">location_on</span>
+                            </div>
+                            <span class="text-on-surface-variant">Online Worldwide</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="pt-10 border-t border-surface-container flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-on-surface-variant font-medium">
+                    © 2026 Mehwish Butt Online Institute. All rights reserved.
+                </p>
+                <div class="flex gap-6 text-xs text-on-surface-variant font-medium">
+                    <a class="hover:text-[#00A3C1]" href="#">Cookie Settings</a>
+                    <a class="hover:text-[#00A3C1]" href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="/particles.js"></script>
+</body>
+
+</html>

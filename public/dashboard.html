@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Student Dashboard | Mehwish Online Institute</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-surface-variant": "#5a6062",
+                        "primary": "#00687c",
+                        "background": "#f8f9fa",
+                        "on-surface": "#2d3335",
+                        "outline-variant": "#adb3b5",
+                        "surface-container": "#ebeef0",
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .bg-grid-pattern {
+            background-image: radial-gradient(#00A3C1 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+            opacity: 0.1;
+        }
+
+        .bg-blob {
+            position: absolute;
+            border-radius: 9999px;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.08;
+            background-color: #00A3C1;
+        }
+
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background text-on-surface font-body selection:bg-[#00A3C1]/20 selection:text-[#00A3C1] overflow-x-hidden min-h-screen pb-12">
+
+    <!-- Background Decorations -->
+    <div class="fixed inset-0 pointer-events-none -z-10">
+        <div class="bg-blob w-[500px] h-[500px] -top-64 -left-32"></div>
+        <div class="bg-blob w-[600px] h-[600px] top-1/2 -right-64"></div>
+        <div class="absolute inset-0 bg-grid-pattern"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="fixed top-0 w-full z-50 bg-white/80 glass-nav border-b border-surface-container">
+        <div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-[#00A3C1]/10 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[#00A3C1]">school</span>
+                </div>
+                <div class="text-xl font-extrabold text-[#00A3C1] tracking-tighter font-headline">Student Portal</div>
+            </div>
+            <div class="flex items-center gap-6">
+                <button onclick="logout()"
+                    class="flex items-center gap-2 text-on-surface hover:text-[#00A3C1] font-bold text-sm transition-colors">
+                    <span class="material-symbols-outlined text-lg">logout</span> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-32 max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        <!-- Left Column: Profile & Stats -->
+        <div class="lg:col-span-1 space-y-8">
+            <!-- Profile Card -->
+            <div
+                class="bg-white rounded-3xl p-8 shadow-sm border border-surface-container text-center relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-2 bg-[#00A3C1]"></div>
+                <div
+                    class="w-24 h-24 rounded-full bg-blue-50 text-[#00A3C1] flex items-center justify-center mx-auto mb-4 border-4 border-white shadow-md">
+                    <span class="material-symbols-outlined text-5xl">person</span>
+                </div>
+                <h2 id="student-name" class="font-headline text-2xl font-extrabold mb-1">Loading...</h2>
+                <p id="student-info" class="text-on-surface-variant text-sm font-medium mb-6">Fetching details...</p>
+
+                <div class="grid grid-cols-2 gap-4 border-t border-surface-container pt-6">
+                    <div>
+                        <p class="text-[2rem] font-black text-[#00A3C1]" id="stats-subjects">0</p>
+                        <p class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Subj Enrolled</p>
+                    </div>
+                    <div>
+                        <p class="text-[2rem] font-black text-error" id="stats-pending">0</p>
+                        <p class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Assignments</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Lessons -->
+            <div class="bg-white rounded-3xl p-8 shadow-sm border border-surface-container">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="material-symbols-outlined text-[#00A3C1]">video_library</span>
+                    <h3 class="font-headline text-xl font-bold">My Lessons</h3>
+                </div>
+                <select id="lesson-subject-select"
+                    class="w-full px-4 py-3 rounded-xl border border-outline-variant focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all mb-6 text-sm font-bold">
+                    <option value="">-- Choose Subject --</option>
+                </select>
+                <div id="lessons-container" class="space-y-4">
+                    <p class="text-on-surface-variant text-center text-sm py-4 bg-surface-container-low rounded-xl">
+                        Select a subject to view its content.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Assignments & Grades -->
+        <div class="lg:col-span-2 space-y-8">
+            <!-- Assignments Card -->
+            <div class="bg-white rounded-3xl p-8 shadow-sm border border-surface-container">
+                <div class="flex items-center gap-3 mb-6 border-b border-surface-container pb-4">
+                    <span class="material-symbols-outlined text-error text-2xl">assignment_late</span>
+                    <h3 class="font-headline text-2xl font-bold">Pending Assignments</h3>
+                </div>
+                <div id="assignments-container" class="space-y-4">
+                    <p class="text-on-surface-variant text-center py-8">Loading assignments...</p>
+                </div>
+            </div>
+
+            <!-- Recent Grades Card -->
+            <div class="bg-white rounded-3xl p-8 shadow-sm border border-surface-container">
+                <div class="flex items-center gap-3 mb-6 border-b border-surface-container pb-4">
+                    <span class="material-symbols-outlined text-green-600 text-2xl">workspace_premium</span>
+                    <h3 class="font-headline text-2xl font-bold">Recent Grades</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr
+                                class="text-xs font-bold text-on-surface-variant uppercase tracking-wider border-b border-surface-container">
+                                <th class="py-4 pr-6">Subject</th>
+                                <th class="py-4 pr-6">Marks</th>
+                                <th class="py-4">Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody id="grades-table-body" class="divide-y divide-surface-container">
+                            <!-- Populated randomly -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Toast -->
+    <div id="toast"
+        class="fixed bottom-6 right-6 bg-[#2d3335] text-white px-6 py-4 rounded-2xl shadow-2xl transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center gap-3 font-bold border border-white/10">
+        <span class="material-symbols-outlined text-[#00A3C1]">notifications</span>
+        <span id="toast-message">Notification</span>
+    </div>
+
+    <script>
+        // Auth
+        async function checkAuth() {
+            try {
+                const res = await fetch('/api/check-auth');
+                const data = await res.json();
+                if (!data.authenticated) {
+                    window.location.href = 'index.html';
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+        checkAuth();
+
+        async function logout() {
+            await fetch('/api/logout', { method: 'POST' });
+            window.location.href = 'index.html';
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            if (type === 'error') toast.style.backgroundColor = '#a83836';
+            else toast.style.backgroundColor = '#2d3335';
+            setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 3000);
+        }
+
+        // Fetch Base Dashboard
+        fetch('/api/student/data')
+            .then(response => response.json())
+            .then(data => {
+                const lessonSelect = document.getElementById('lesson-subject-select');
+                if (data.enrolled_subjects_list) {
+                    data.enrolled_subjects_list.forEach(sub => lessonSelect.appendChild(new Option(sub.name, sub.id)));
+                }
+                if (data.student) {
+                    document.getElementById('student-name').textContent = data.student.name;
+                    document.getElementById('student-info').textContent = data.student.email;
+                }
+                document.getElementById('stats-subjects').textContent = data.subjects_enrolled || 0;
+                document.getElementById('stats-pending').textContent = data.assignments_pending ? data.assignments_pending.length : 0;
+
+                const gradesBody = document.getElementById('grades-table-body');
+                gradesBody.innerHTML = '';
+                if (data.grades && data.grades.length > 0) {
+                    data.grades.forEach(grade => {
+                        gradesBody.innerHTML += `
+                        <tr class="hover:bg-surface-container-low transition-colors">
+                            <td class="py-4 pr-6 font-bold text-sm">${grade.subject_name}</td>
+                            <td class="py-4 pr-6 text-on-surface-variant text-sm font-medium">${grade.marks_obtained} / ${grade.total_marks}</td>
+                            <td class="py-4">
+                                <span class="px-3 py-1 text-xs font-black rounded-full ${grade.grade === 'A' ? 'bg-green-100 text-green-800' : 'bg-[#00A3C1]/10 text-[#00A3C1]'}">${grade.grade}</span>
+                            </td>
+                        </tr>
+                    `;
+                    });
+                } else {
+                    gradesBody.innerHTML = '<tr><td colspan="3" class="text-center py-6 text-sm text-on-surface-variant">No grades posted yet.</td></tr>';
+                }
+
+                const assignmentsContainer = document.getElementById('assignments-container');
+                assignmentsContainer.innerHTML = '';
+                if (!data.assignments_pending || data.assignments_pending.length === 0) {
+                    assignmentsContainer.innerHTML = '<div class="bg-green-50 text-green-800 p-4 rounded-xl font-bold flex items-center gap-2"><span class="material-symbols-outlined">check_circle</span> No pending assignments! You are fully caught up.</div>';
+                } else {
+                    data.assignments_pending.forEach(assignment => {
+                        assignmentsContainer.innerHTML += `
+                        <div class="p-6 border border-surface-container rounded-2xl bg-surface-container-low/30 hover:shadow-md transition-shadow">
+                            <h4 class="font-headline font-extrabold text-lg mb-1">${assignment.title}</h4>
+                            <p class="text-sm font-bold text-[#00A3C1] mb-6">${assignment.subject_name} <span class="text-on-surface-variant font-normal tracking-wide">• Due: ${assignment.due_date || 'N/A'}</span></p>
+                            
+                            <div class="flex items-center gap-3">
+                                <input type="file" id="file-${assignment.id}" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-6 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-[#00A3C1]/10 file:text-[#00A3C1] hover:file:bg-[#00A3C1]/20 transition-colors w-2/3 cursor-pointer outline-none"/>
+                                <button onclick="submitAssignment(${assignment.id})" class="bg-[#00A3C1] text-white px-6 py-2.5 rounded-full font-bold text-sm hover:scale-105 transition-transform flex items-center gap-2 shadow-lg shadow-[#00A3C1]/20 w-1/3 justify-center">
+                                    <span class="material-symbols-outlined text-sm">upload</span> Submit
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    });
+                }
+            });
+
+        // Lessons logic
+        document.getElementById('lesson-subject-select')?.addEventListener('change', async (e) => {
+            const subjectId = e.target.value;
+            const container = document.getElementById('lessons-container');
+            if (!subjectId) {
+                container.innerHTML = '<p class="text-on-surface-variant text-center text-sm py-4 bg-surface-container-low rounded-xl">Select a subject to view its content.</p>';
+                return;
+            }
+            container.innerHTML = '<div class="flex justify-center py-8"><span class="material-symbols-outlined animate-spin text-[#00A3C1] text-4xl">autorenew</span></div>';
+
+            try {
+                const res = await fetch(`/api/student/lessons/${subjectId}`);
+                const lessons = await res.json();
+                if (!lessons.length) {
+                    container.innerHTML = '<p class="text-on-surface-variant text-center text-sm py-4 bg-surface-container-low rounded-xl border border-surface-container">No lessons found yet for this subject.</p>';
+                    return;
+                }
+                container.innerHTML = lessons.map(l => `
+                <div class="border border-surface-container p-6 rounded-2xl bg-white hover:border-[#00A3C1]/30 transition-colors shadow-sm">
+                    <h4 class="font-headline font-black text-lg text-[#00A3C1] mb-3">${l.title}</h4>
+                    <p class="text-sm text-on-surface-variant leading-relaxed font-medium mb-4">${l.content || 'No details provided.'}</p>
+                    ${l.video_url ? `<a href="${l.video_url}" target="_blank" class="inline-flex items-center gap-2 bg-red-50 text-red-600 font-bold text-sm px-4 py-2 rounded-full hover:bg-red-100 transition-colors"><span class="material-symbols-outlined text-lg">play_circle</span> Watch Video</a>` : ''}
+                </div>
+            `).join('');
+            } catch (err) {
+                container.innerHTML = '<p class="text-error text-center font-bold">Error loading lessons. Refresh the page.</p>';
+            }
+        });
+
+        async function submitAssignment(assignmentId) {
+            const fileInput = document.getElementById(`file-${assignmentId}`);
+            if (!fileInput.files[0]) return showToast('Please select a file first', 'error');
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            formData.append('assignment_id', assignmentId);
+
+            try {
+                const response = await fetch('/api/student/assignments/submit', { method: 'POST', body: formData });
+                if (response.ok) {
+                    showToast('Assignment submitted successfully!');
+                    setTimeout(() => location.reload(), 1500);
+                } else {
+                    showToast('Upload failed', 'error');
+                }
+            } catch (error) {
+                showToast('Error uploading assignment', 'error');
+            }
+        }
+    </script>
+    <script src="/particles.js"></script>
+</body>
+
+</html>

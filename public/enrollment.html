@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Student Enrollment | Mehwish Online Institute</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-surface-variant": "#5a6062",
+                        "primary": "#00687c",
+                        "background": "#f8f9fa",
+                        "on-surface": "#2d3335",
+                        "outline-variant": "#adb3b5",
+                        "surface-container": "#ebeef0",
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .bg-grid-pattern {
+            background-image: radial-gradient(#00A3C1 1px, transparent 1px);
+            background-size: 32px 32px;
+            opacity: 0.1;
+        }
+
+        .bg-blob {
+            position: absolute;
+            border-radius: 9999px;
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.1;
+            background-color: #00A3C1;
+        }
+
+        .step {
+            display: none;
+            transform: translateX(20px);
+            opacity: 0;
+            transition: all 0.4s ease-in-out;
+        }
+
+        .step.active {
+            display: block;
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .progress-bar-fill {
+            transition: width 0.4s ease-in-out;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background text-on-surface font-body min-h-screen flex flex-col items-center justify-center p-6 relative overflow-x-hidden">
+
+    <div class="fixed inset-0 pointer-events-none -z-10">
+        <div class="bg-blob w-[600px] h-[600px] top-[-200px] right-[-100px]"></div>
+        <div class="bg-blob w-[500px] h-[500px] bottom-[-100px] left-[-100px]"></div>
+        <div class="absolute inset-0 bg-grid-pattern"></div>
+    </div>
+
+    <header class="w-full absolute top-0 p-8 flex justify-center md:justify-start">
+        <a href="index.html" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <span class="material-symbols-outlined text-[#00A3C1]">arrow_back</span>
+            <span class="text-lg font-extrabold text-[#00A3C1] tracking-tighter font-headline">Back to Website</span>
+        </a>
+    </header>
+
+    <div
+        class="w-full max-w-2xl bg-white/80 backdrop-blur-xl border border-white p-8 md:p-12 rounded-[2.5rem] shadow-2xl relative">
+
+        <!-- Progress Indicator -->
+        <div class="mb-10">
+            <div class="flex justify-between items-center mb-2">
+                <h2 class="font-headline font-black text-2xl" id="step-title">1. Let's get to know you</h2>
+                <span
+                    class="text-sm font-bold text-on-surface-variant bg-surface-container px-3 py-1 rounded-full border border-outline-variant/30"
+                    id="step-count">Step 1 of 6</span>
+            </div>
+            <div class="w-full bg-surface-container rounded-full h-2 overflow-hidden">
+                <div class="bg-[#00A3C1] h-2 rounded-full progress-bar-fill" id="progress-bar" style="width: 16.66%;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Container -->
+        <form id="enrollment-form" class="space-y-6">
+
+            <!-- Step 1: Basic Info -->
+            <div class="step active" id="step-1">
+                <p class="text-on-surface-variant font-medium mb-6">Enter your personal details so we can contact you
+                    securely.</p>
+                <div class="space-y-5">
+                    <div>
+                        <label class="block text-sm font-bold text-on-surface mb-2">Full Name</label>
+                        <input type="text" id="name" placeholder="John Doe"
+                            class="w-full px-5 py-3.5 rounded-2xl border border-outline-variant focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all font-medium bg-white"
+                            required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-on-surface mb-2">Email Address</label>
+                        <input type="email" id="email" placeholder="student@example.com"
+                            class="w-full px-5 py-3.5 rounded-2xl border border-outline-variant focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all font-medium bg-white"
+                            required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-on-surface mb-2">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="+12 345 6789"
+                            class="w-full px-5 py-3.5 rounded-2xl border border-outline-variant focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all font-medium bg-white"
+                            required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Grade Selection -->
+            <div class="step" id="step-2">
+                <p class="text-on-surface-variant font-medium mb-6">Which grade or academic level are you currently
+                    enrolled in?</p>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <label class="relative cursor-pointer">
+                        <input type="radio" name="grade" value="Middle School" class="peer sr-only">
+                        <div
+                            class="w-full p-4 border-2 border-surface-container rounded-2xl text-center peer-checked:border-[#00A3C1] peer-checked:bg-[#00A3C1]/5 hover:bg-gray-50 transition-all font-bold">
+                            Middle School</div>
+                    </label>
+                    <label class="relative cursor-pointer">
+                        <input type="radio" name="grade" value="High School / O-Levels" class="peer sr-only">
+                        <div
+                            class="w-full p-4 border-2 border-surface-container rounded-2xl text-center peer-checked:border-[#00A3C1] peer-checked:bg-[#00A3C1]/5 hover:bg-gray-50 transition-all font-bold">
+                            High School / O-Levels</div>
+                    </label>
+                    <label class="relative cursor-pointer">
+                        <input type="radio" name="grade" value="A-Levels" class="peer sr-only">
+                        <div
+                            class="w-full p-4 border-2 border-surface-container rounded-2xl text-center peer-checked:border-[#00A3C1] peer-checked:bg-[#00A3C1]/5 hover:bg-gray-50 transition-all font-bold">
+                            A-Levels</div>
+                    </label>
+                    <label class="relative cursor-pointer">
+                        <input type="radio" name="grade" value="Undergraduate" class="peer sr-only">
+                        <div
+                            class="w-full p-4 border-2 border-surface-container rounded-2xl text-center peer-checked:border-[#00A3C1] peer-checked:bg-[#00A3C1]/5 hover:bg-gray-50 transition-all font-bold">
+                            Undergraduate</div>
+                    </label>
+                    <label class="relative cursor-pointer">
+                        <input type="radio" name="grade" value="Professional" class="peer sr-only">
+                        <div
+                            class="w-full p-4 border-2 border-surface-container rounded-2xl text-center peer-checked:border-[#00A3C1] peer-checked:bg-[#00A3C1]/5 hover:bg-gray-50 transition-all font-bold">
+                            Professional</div>
+                    </label>
+                </div>
+                <p id="grade-error" class="text-red-500 text-sm font-bold mt-4 hidden">Please select your grade to
+                    continue.</p>
+            </div>
+
+            <!-- Step 3: Class Selection -->
+            <div class="step" id="step-3">
+                <p class="text-on-surface-variant font-medium mb-6">Choose a specific class category or section (e.g.
+                    Science, Commerce, Arts).</p>
+                <div>
+                    <label class="block text-sm font-bold text-on-surface mb-2">Class Section Focus</label>
+                    <select id="class-focus"
+                        class="w-full px-5 py-4 rounded-2xl border border-outline-variant focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all font-bold bg-white text-lg">
+                        <option value="">-- Click to Choose --</option>
+                        <option value="Science Group">Science Group</option>
+                        <option value="Commerce Group">Commerce Group</option>
+                        <option value="Arts / Humanities">Arts / Humanities</option>
+                        <option value="Computer Science">Computer Science</option>
+                    </select>
+                </div>
+                <p id="class-error" class="text-red-500 text-sm font-bold mt-4 hidden">Please select a class category.
+                </p>
+            </div>
+
+            <!-- Step 4: Duration -->
+            <div class="step" id="step-4">
+                <p class="text-on-surface-variant font-medium mb-6">How long do you plan to enroll for?</p>
+                <div class="space-y-4">
+                    <label
+                        class="flex items-center p-5 border-2 border-surface-container rounded-2xl cursor-pointer hover:bg-gray-50 peer-checked:border-[#00A3C1] transition-all relative">
+                        <input type="radio" name="duration" value="1 Month Trial"
+                            class="w-5 h-5 text-[#00A3C1] focus:ring-[#00A3C1] mr-4">
+                        <div>
+                            <span class="block font-headline font-bold text-lg">1 Month Trial</span>
+                            <span class="text-on-surface-variant text-sm font-medium">Perfect to test the waters.</span>
+                        </div>
+                    </label>
+                    <label
+                        class="flex items-center p-5 border-2 border-[#00A3C1] bg-[#00A3C1]/5 rounded-2xl cursor-pointer hover:bg-gray-50 transition-all relative">
+                        <div
+                            class="absolute -top-3 right-4 bg-[#00A3C1] text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider">
+                            Most Popular</div>
+                        <input type="radio" name="duration" value="6 Months Semester"
+                            class="w-5 h-5 text-[#00A3C1] focus:ring-[#00A3C1] mr-4" checked>
+                        <div>
+                            <span class="block font-headline font-bold text-lg text-[#00687c]">6 Months Semester</span>
+                            <span class="text-on-surface-variant text-sm font-medium">Ideal for exam preparation.</span>
+                        </div>
+                    </label>
+                    <label
+                        class="flex items-center p-5 border-2 border-surface-container rounded-2xl cursor-pointer hover:bg-gray-50 transition-all relative">
+                        <input type="radio" name="duration" value="1 Year Premium"
+                            class="w-5 h-5 text-[#00A3C1] focus:ring-[#00A3C1] mr-4">
+                        <div>
+                            <span class="block font-headline font-bold text-lg">1 Year Premium</span>
+                            <span class="text-on-surface-variant text-sm font-medium">Full access to everything.</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Step 5: Account Info -->
+            <div class="step" id="step-5">
+                <p class="text-on-surface-variant font-medium mb-6">Create a secure password. Your email address will be
+                    your Username.</p>
+                <div class="space-y-5">
+                    <div>
+                        <label class="block text-sm font-bold text-on-surface mb-2">Create Password</label>
+                        <input type="password" id="password" placeholder="••••••••"
+                            class="w-full px-5 py-3.5 rounded-2xl border border-outline-variant focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all font-medium bg-white"
+                            required>
+                        <div class="w-full bg-surface-container h-1.5 mt-3 rounded-full overflow-hidden">
+                            <div id="pwd-strength" class="h-full w-0 transition-all duration-300"></div>
+                        </div>
+                        <p id="pwd-text" class="text-xs font-bold mt-1 text-gray-500">Too weak</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6: Review -->
+            <div class="step" id="step-6">
+                <h3 class="font-headline font-black text-xl mb-4 text-[#00A3C1]">Review Your Journey</h3>
+                <div class="bg-blue-50/50 p-6 rounded-3xl border border-blue-100 space-y-3 font-medium text-sm">
+                    <p><span
+                            class="font-bold text-gray-400 uppercase tracking-widest text-xs inline-block w-24">Name</span>
+                        <span id="rev-name" class="font-bold text-lg text-[#00A3C1]"></span></p>
+                    <p><span
+                            class="font-bold text-gray-400 uppercase tracking-widest text-xs inline-block w-24">Email</span>
+                        <span id="rev-email" class="font-bold text-gray-800"></span></p>
+                    <p><span
+                            class="font-bold text-gray-400 uppercase tracking-widest text-xs inline-block w-24">Phone</span>
+                        <span id="rev-phone" class="font-bold text-gray-800"></span></p>
+                    <p><span
+                            class="font-bold text-gray-400 uppercase tracking-widest text-xs inline-block w-24">Grade</span>
+                        <span id="rev-grade" class="font-bold text-gray-800"></span></p>
+                    <p><span class="font-bold text-gray-400 uppercase tracking-widest text-xs inline-block w-24">Class
+                            Focus</span> <span id="rev-class" class="font-bold text-gray-800"></span></p>
+                    <p><span
+                            class="font-bold text-gray-400 uppercase tracking-widest text-xs inline-block w-24">Duration</span>
+                        <span id="rev-duration" class="font-bold text-gray-800"></span></p>
+                </div>
+                <p class="text-center text-xs text-gray-500 font-bold mt-6">By clicking Complete Registration, you will
+                    receive an automatic confirmation email connecting you to your teacher!</p>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex justify-between items-center mt-12 pt-6 border-t border-surface-container gap-4">
+                <button type="button" id="prev-btn"
+                    class="hidden px-6 py-3 rounded-full font-bold text-on-surface bg-surface-container hover:bg-gray-200 transition-colors">Go
+                    Back</button>
+                <button type="button" id="next-btn"
+                    class="ml-auto px-8 py-3 rounded-full font-extrabold text-white bg-[#00A3C1] shadow-lg hover:shadow-[#00A3C1]/40 hover:-translate-y-0.5 transition-all w-full md:w-auto">Continue</button>
+            </div>
+            <p id="submit-message" class="text-center text-red-500 font-bold text-sm hidden mt-4"></p>
+        </form>
+    </div>
+
+    <!-- Success Modal Overlay -->
+    <div id="success-modal"
+        class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 opacity-0 transition-opacity">
+        <div
+            class="bg-white rounded-[2.5rem] p-10 max-w-sm w-full text-center shadow-2xl transform scale-95 transition-transform">
+            <div
+                class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span class="material-symbols-outlined text-4xl">mark_email_read</span>
+            </div>
+            <h2 class="font-headline font-black text-2xl mb-2">You're Enrolled!</h2>
+            <p class="text-on-surface-variant text-sm font-medium mb-8">We've just sent you a welcome email containing
+                your login details and a direct link to the portal.</p>
+            <a href="login.html"
+                class="block w-full py-4 text-white bg-[#00A3C1] rounded-full font-bold shadow-lg hover:scale-105 transition-transform">Go
+                to Login</a>
+        </div>
+    </div>
+
+    <script src="/particles.js"></script>
+
+    <script>
+        const stepsTitle = [
+            "1. Let's get to know you",
+            "2. What's your academic level?",
+            "3. Choose your field of study",
+            "4. Choose your course package",
+            "5. Secure your portal",
+            "6. Final Review"
+        ];
+        let currentStep = 1;
+        const totalSteps = 6;
+
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+
+        // Password Strength Meter
+        document.getElementById('password').addEventListener('input', function (e) {
+            const val = e.target.value;
+            const meter = document.getElementById('pwd-strength');
+            const text = document.getElementById('pwd-text');
+            if (val.length === 0) { meter.style.width = '0'; text.textContent = 'Too weak'; }
+            else if (val.length < 5) { meter.style.width = '33%'; meter.style.backgroundColor = '#ef4444'; text.textContent = 'Weak'; text.style.color = '#ef4444'; }
+            else if (val.length < 8) { meter.style.width = '66%'; meter.style.backgroundColor = '#eab308'; text.textContent = 'Fair'; text.style.color = '#eab308'; }
+            else { meter.style.width = '100%'; meter.style.backgroundColor = '#22c55e'; text.textContent = 'Strong'; text.style.color = '#22c55e'; }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            // Validation per step
+            if (currentStep === 1) {
+                if (!document.getElementById('name').value || !document.getElementById('email').value || !document.getElementById('phone').value) {
+                    document.getElementById('name').reportValidity(); return;
+                }
+            }
+            if (currentStep === 2) {
+                if (!document.querySelector('input[name="grade"]:checked')) {
+                    document.getElementById('grade-error').classList.remove('hidden'); return;
+                } else { document.getElementById('grade-error').classList.add('hidden'); }
+            }
+            if (currentStep === 3) {
+                if (!document.getElementById('class-focus').value) {
+                    document.getElementById('class-error').classList.remove('hidden'); return;
+                } else { document.getElementById('class-error').classList.add('hidden'); }
+            }
+            if (currentStep === 5) {
+                if (!document.getElementById('password').value) {
+                    document.getElementById('password').reportValidity(); return;
+                }
+            }
+
+            if (currentStep < totalSteps) {
+                currentStep++;
+                updateUI();
+            } else if (currentStep === totalSteps) {
+                submitForm();
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentStep > 1) {
+                currentStep--;
+                updateUI();
+            }
+        });
+
+        function updateUI() {
+            // Hide all, show current
+            document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+
+            // Progress Bar & Titles
+            document.getElementById('progress-bar').style.width = `${(currentStep / totalSteps) * 100}%`;
+            document.getElementById('step-title').textContent = stepsTitle[currentStep - 1];
+            document.getElementById('step-count').textContent = `Step ${currentStep} of ${totalSteps}`;
+
+            // Prepare Review step
+            if (currentStep === 6) {
+                document.getElementById('rev-name').textContent = document.getElementById('name').value;
+                document.getElementById('rev-email').textContent = document.getElementById('email').value;
+                document.getElementById('rev-phone').textContent = document.getElementById('phone').value;
+                document.getElementById('rev-grade').textContent = document.querySelector('input[name="grade"]:checked').value;
+                document.getElementById('rev-class').textContent = document.getElementById('class-focus').value;
+                document.getElementById('rev-duration').textContent = document.querySelector('input[name="duration"]:checked').value;
+
+                nextBtn.textContent = 'Complete Registration';
+                nextBtn.classList.add('bg-green-500', 'shadow-green-500/40');
+                nextBtn.classList.remove('bg-[#00A3C1]', 'shadow-[#00A3C1]/40');
+            } else {
+                nextBtn.textContent = 'Continue';
+                nextBtn.classList.remove('bg-green-500', 'shadow-green-500/40');
+                nextBtn.classList.add('bg-[#00A3C1]', 'shadow-[#00A3C1]/40');
+            }
+
+            prevBtn.style.display = currentStep > 1 ? 'block' : 'none';
+
+            // Remove active radio highlights cleanly (UI tweak)
+            if (currentStep === 2 || currentStep === 4) {
+                document.querySelectorAll('input[type="radio"]').forEach(r => {
+                    r.addEventListener('change', (e) => {
+                        if (e.target.name === 'duration') {
+                            document.querySelectorAll('input[name="duration"]').forEach(i => i.parentElement.classList.remove('border-[#00A3C1]', 'bg-[#00A3C1]/5'));
+                            e.target.parentElement.classList.add('border-[#00A3C1]', 'bg-[#00A3C1]/5');
+                        }
+                    });
+                });
+            }
+        }
+
+        async function submitForm() {
+            nextBtn.innerHTML = '<span class="material-symbols-outlined animate-spin align-middle mr-2">autorenew</span> Registering...';
+            nextBtn.disabled = true;
+
+            const payload = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                grade: document.querySelector('input[name="grade"]:checked').value,
+                student_class: document.getElementById('class-focus').value,
+                duration: document.querySelector('input[name="duration"]:checked').value,
+                password: document.getElementById('password').value
+            };
+
+            try {
+                const response = await fetch('/api/enroll-wizard', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    const modal = document.getElementById('success-modal');
+                    modal.classList.remove('hidden');
+                    setTimeout(() => {
+                        modal.classList.remove('opacity-0');
+                        modal.querySelector('.transform').classList.remove('scale-95');
+                    }, 50);
+                } else {
+                    nextBtn.innerHTML = 'Complete Registration';
+                    nextBtn.disabled = false;
+                    document.getElementById('submit-message').textContent = data.message || 'Error occurred';
+                    document.getElementById('submit-message').classList.remove('hidden');
+                }
+            } catch (e) {
+                nextBtn.innerHTML = 'Complete Registration';
+                nextBtn.disabled = false;
+                document.getElementById('submit-message').textContent = 'Server connection failed.';
+                document.getElementById('submit-message').classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+
+</html>

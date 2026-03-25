@@ -1,0 +1,115 @@
+/* General Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Light and dark mode background classes */
+.bg-gray-50 {
+  background-color: #f9fafb;
+}
+.dark .bg-gray-900 {
+  background-color: #111827;
+}
+
+/* Gradient Header */
+.gradient-bg {
+  background: linear-gradient(to right, #2563eb, #1d4ed8); /* Primary blue shades */
+}
+
+/* Primary Theme Colors */
+.text-primary-100 { color: #dbeafe; }
+.text-primary-200 { color: #bfdbfe; }
+.text-primary-400 { color: #60a5fa; }
+.text-primary-500 { color: #3b82f6; }
+.text-primary-600 { color: #2563eb; }
+.text-primary-700 { color: #1d4ed8; }
+.text-primary-800 { color: #1e40af; }
+
+.bg-primary-100 { background-color: #dbeafe; }
+.bg-primary-600 { background-color: #2563eb; }
+.bg-primary-700 { background-color: #1d4ed8; }
+
+.hover\:bg-primary-700:hover {
+  background-color: #1d4ed8;
+}
+
+/* Buttons */
+button {
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 0.875rem;
+}
+
+thead {
+  background-color: #f1f5f9;
+}
+
+.dark thead {
+  background-color: #374151;
+}
+
+tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.dark tbody tr:hover {
+  background-color: #1f2937;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+/* Profile Dropdown */
+#admin-menu {
+  min-width: 12rem;
+}
+
+/* Pagination */
+.pagination a {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e5e7eb;
+  margin-right: 0.25rem;
+  border-radius: 0.375rem;
+  color: #374151;
+  background-color: white;
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+
+.pagination a.active {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+  border-color: #3b82f6;
+}
+
+.pagination a:hover {
+  background-color: #f3f4f6;
+}
+
+/* Utility spacing and layout helpers (if not using Tailwind) */
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.space-x-2 > :not(:last-child) { margin-right: 0.5rem; }
+.space-x-4 > :not(:last-child) { margin-right: 1rem; }
+.rounded-md { border-radius: 0.375rem; }
+.shadow { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); }
+
+/* Responsive table overflow */
+.overflow-x-auto {
+  overflow-x: auto;
+}

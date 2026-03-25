@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Teacher Dashboard | Mehwish Online Institute</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-surface-variant": "#5a6062",
+                        "primary": "#00687c",
+                        "background": "#f8f9fa",
+                        "on-surface": "#2d3335",
+                        "outline-variant": "#adb3b5",
+                        "surface-container": "#ebeef0",
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .bg-grid-pattern {
+            background-image: radial-gradient(#00A3C1 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+            opacity: 0.1;
+        }
+
+        .bg-blob {
+            position: absolute;
+            border-radius: 9999px;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.08;
+            background-color: #00A3C1;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .sidebar-link {
+            display: flex;
+            items-center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: #a0aec0;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+
+        .sidebar-link:hover {
+            background-color: rgba(0, 163, 193, 0.1);
+            color: #00A3C1;
+        }
+
+        .sidebar-link.active {
+            background-color: #00A3C1;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 163, 193, 0.3);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        .input-field:focus {
+            border-color: #00A3C1;
+            box-shadow: 0 0 0 3px rgba(0, 163, 193, 0.1);
+        }
+
+        .btn-primary {
+            background-color: #00A3C1;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 999px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            box-shadow: 0 4px 10px rgba(0, 163, 193, 0.2);
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 163, 193, 0.3);
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-surface font-body overflow-hidden">
+    <div class="fixed inset-0 pointer-events-none -z-10">
+        <div class="bg-blob w-[500px] h-[500px] top-0 left-1/4"></div>
+        <div class="bg-blob w-[600px] h-[600px] bottom-0 right-1/4"></div>
+        <div class="absolute inset-0 bg-grid-pattern"></div>
+    </div>
+
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-72 bg-[#1a202c] shadow-2xl flex flex-col z-20">
+            <div class="p-8 pb-6 flex items-center gap-3 border-b border-gray-700/50">
+                <div
+                    class="w-10 h-10 rounded-full bg-[#00A3C1] flex items-center justify-center text-white shadow-lg shadow-[#00A3C1]/30">
+                    <span class="material-symbols-outlined text-xl">admin_panel_settings</span>
+                </div>
+                <div>
+                    <h1 class="font-headline font-black text-white leading-tight">Teacher Portal</h1>
+                    <p class="text-xs text-gray-400 font-bold uppercase tracking-wider">Management</p>
+                </div>
+            </div>
+
+            <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
+                <a href="#" class="sidebar-link active" onclick="showSection('dashboard', this)">
+                    <span class="material-symbols-outlined">dashboard</span> Dashboard
+                </a>
+                <div class="pt-4 pb-2 px-4 text-xs font-black text-gray-500 uppercase tracking-widest">People</div>
+                <a href="#" class="sidebar-link" onclick="showSection('students', this)">
+                    <span class="material-symbols-outlined">group</span> Students
+                </a>
+                <div class="pt-4 pb-2 px-4 text-xs font-black text-gray-500 uppercase tracking-widest">Academics</div>
+                <a href="#" class="sidebar-link" onclick="showSection('subjects', this)">
+                    <span class="material-symbols-outlined">library_books</span> Subjects
+                </a>
+                <a href="#" class="sidebar-link" onclick="showSection('lessons', this)">
+                    <span class="material-symbols-outlined">play_lesson</span> Lessons
+                </a>
+                <a href="#" class="sidebar-link" onclick="showSection('enrollments', this)">
+                    <span class="material-symbols-outlined">how_to_reg</span> Enrollments
+                </a>
+                <div class="pt-4 pb-2 px-4 text-xs font-black text-gray-500 uppercase tracking-widest">Daily Tasks</div>
+                <a href="#" class="sidebar-link" onclick="showSection('assignments', this)">
+                    <span class="material-symbols-outlined">assignment</span> Assignments
+                </a>
+                <a href="#" class="sidebar-link" onclick="showSection('attendance', this)">
+                    <span class="material-symbols-outlined">fact_check</span> Attendance
+                </a>
+                <a href="#" class="sidebar-link" onclick="showSection('grades', this)">
+                    <span class="material-symbols-outlined">workspace_premium</span> Grades
+                </a>
+            </nav>
+
+            <div class="p-6 border-t border-gray-700/50">
+                <button onclick="logout()"
+                    class="flex items-center gap-3 text-gray-400 hover:text-white font-bold transition-colors w-full">
+                    <span class="material-symbols-outlined">logout</span> Log Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto overflow-x-hidden p-10 relative">
+            <header
+                class="flex justify-between items-center mb-10 bg-white/50 backdrop-blur-md p-6 rounded-3xl border border-surface-container shadow-sm">
+                <div>
+                    <h2 id="page-title" class="font-headline text-3xl font-black text-on-surface">Overview Dashboard
+                    </h2>
+                    <p class="text-sm font-medium text-on-surface-variant">Manage your institute efficiently.</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="text-right">
+                        <p class="font-bold text-sm">Mehwish Butt</p>
+                        <p class="text-xs text-[#00A3C1] font-bold">Head Instructor</p>
+                    </div>
+                    <div
+                        class="w-12 h-12 bg-surface-container rounded-full flex items-center justify-center border-2 border-white shadow-sm overflow-hidden">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3KocL1dE_jf1PshYIk2clP4afqjHO1Q535Jfp4k4mR42v4FfHu5FekPTUgeRnyw1M-Oznd-SmhO13jmlGsQ6rT2WGepjyRx_wE6WkSMSU5qneNMVv_JPKarh50grImwXEFcVAMBbvnWZNOglJTkro7XjAjW9dGFuuxdIK1ERuseilDb8xZZlLiryVrjPDZJM-l-T1JmjHwv5LLPyZfcPsWWQDjMmZybdHqvWBxb_cwm0n3tOxk_NPxhYYwa8mbe2-sGt9LUxAgKY"
+                            alt="Profile" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Sections -->
+            <div id="dashboard" class="section active">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                    <div
+                        class="bg-white p-6 rounded-3xl shadow-sm border border-surface-container flex items-center gap-4">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-3xl">
+                            <span class="material-symbols-outlined">group</span>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Total Students
+                            </p>
+                            <h3 class="font-black text-2xl">Active</h3>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white p-6 rounded-3xl shadow-sm border border-surface-container flex items-center gap-4">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-3xl">
+                            <span class="material-symbols-outlined">library_books</span>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Subjects</p>
+                            <h3 class="font-black text-2xl">Manage</h3>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="bg-[#00A3C1] rounded-3xl p-10 text-white relative overflow-hidden shadow-lg shadow-[#00A3C1]/20">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-2xl"></div>
+                    <h2 class="font-headline text-3xl font-extrabold mb-2 relative z-10">Welcome back, Admin!</h2>
+                    <p class="text-white/80 font-medium relative z-10 max-w-lg mb-6">Use the sidebar to add new
+                        students, create subjects, upload lessons, and mark daily attendance.</p>
+                    <button onclick="showSection('students', document.querySelectorAll('.sidebar-link')[1])"
+                        class="bg-white text-[#00A3C1] px-6 py-2.5 rounded-full font-bold text-sm hover:scale-105 transition-transform shadow-lg relative z-10">Register
+                        a Student</button>
+                </div>
+            </div>
+
+            <div id="students" class="section">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-surface-container mb-8">
+                    <h3 class="font-headline text-xl font-bold mb-6 flex items-center gap-2"><span
+                            class="material-symbols-outlined text-[#00A3C1]">person_add</span> Register New Student</h3>
+                    <form id="student-add-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div><label class="block text-sm font-bold mb-2">Full Name</label><input type="text"
+                                id="student-name" class="input-field" required></div>
+                        <div><label class="block text-sm font-bold mb-2">Class / Year</label><input type="text"
+                                id="student-class" class="input-field" required></div>
+                        <div><label class="block text-sm font-bold mb-2">Email (Login ID)</label><input type="email"
+                                id="student-email" class="input-field" required></div>
+                        <div><label class="block text-sm font-bold mb-2">Password</label><input type="text"
+                                id="student-password" class="input-field" required></div>
+                        <div class="md:col-span-2 pt-2"><button type="submit" class="btn-primary">Create Student
+                                Account</button></div>
+                    </form>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-surface-container">
+                    <h3 class="font-headline text-lg font-bold mb-6">Student Roster</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse" id="students-table">
+                            <thead>
+                                <tr
+                                    class="text-xs font-bold text-on-surface-variant uppercase border-b border-surface-container">
+                                    <th class="py-4 pr-6">ID</th>
+                                    <th class="py-4 pr-6">Name</th>
+                                    <th class="py-4 pr-6">Email</th>
+                                    <th class="py-4">Class</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="4" class="py-6 text-center text-sm text-gray-500">Loading students...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="subjects" class="section">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-surface-container mb-8">
+                    <h3 class="font-headline text-xl font-bold mb-6 flex items-center gap-2"><span
+                            class="material-symbols-outlined text-[#00A3C1]">add_box</span> Create a Subject</h3>
+                    <form id="subject-add-form" class="space-y-6">
+                        <div><label class="block text-sm font-bold mb-2">Subject Name</label><input type="text"
+                                id="subject-name" class="input-field" placeholder="e.g. O-Level Mathematics" required>
+                        </div>
+                        <div><label class="block text-sm font-bold mb-2">Description</label><textarea
+                                id="subject-description" class="input-field" rows="3"></textarea></div>
+                        <button type="submit" class="btn-primary">Create Subject</button>
+                    </form>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-surface-container">
+                    <h3 class="font-headline text-lg font-bold mb-6">Existing Subjects</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse" id="subjects-table">
+                            <thead>
+                                <tr
+                                    class="text-xs font-bold text-on-surface-variant uppercase border-b border-surface-container">
+                                    <th class="py-4 pr-6">ID</th>
+                                    <th class="py-4 pr-6">Name</th>
+                                    <th class="py-4">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="lessons" class="section">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-surface-container max-w-2xl">
+                    <h3 class="font-headline text-xl font-bold mb-6 flex items-center gap-2"><span
+                            class="material-symbols-outlined text-[#00A3C1]">video_file</span> Add a New Lesson</h3>
+                    <form id="lesson-add-form" class="space-y-6">
+                        <div><label class="block text-sm font-bold mb-2">Subject</label><select id="lesson-subject-id"
+                                class="input-field" required></select></div>
+                        <div><label class="block text-sm font-bold mb-2">Lesson Title</label><input type="text"
+                                id="lesson-title" class="input-field" required></div>
+                        <div><label class="block text-sm font-bold mb-2">Lesson Content (Notes)</label><textarea
+                                id="lesson-content" class="input-field" rows="4"></textarea></div>
+                        <div><label class="block text-sm font-bold mb-2">Video/YouTube URL</label><input type="url"
+                                id="lesson-video-url" class="input-field" placeholder="https://..."></div>
+                        <div><label class="block text-sm font-bold mb-2">Order/Week #</label><input type="number"
+                                id="lesson-order" class="input-field" value="1" required></div>
+                        <button type="submit" class="btn-primary">Publish Lesson</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="enrollments" class="section">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-surface-container max-w-xl">
+                    <h3 class="font-headline text-xl font-bold mb-6 flex items-center gap-2"><span
+                            class="material-symbols-outlined text-[#00A3C1]">assignment_ind</span> Enroll Student in
+                        Subject</h3>
+                    <p
+                        class="text-sm text-on-surface-variant leading-relaxed mb-6 bg-blue-50 p-4 rounded-xl border border-blue-100">
+                        Students cannot see any lessons until you explicitly enroll them into a subject.</p>
+                    <form id="enroll-student-form" class="space-y-6">
+                        <div><label class="block text-sm font-bold mb-2">Student</label><select id="enroll-student-id"
+                                class="input-field" required></select></div>
+                        <div><label class="block text-sm font-bold mb-2">Subject</label><select id="enroll-subject-id"
+                                class="input-field" required></select></div>
+                        <button type="submit" class="btn-primary">Enroll Student</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="assignments" class="section">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-surface-container max-w-2xl">
+                    <h3 class="font-headline text-xl font-bold mb-6 flex items-center gap-2"><span
+                            class="material-symbols-outlined text-[#00A3C1]">task</span> Distribute Assignment</h3>
+                    <p class="text-sm text-on-surface-variant mb-6">Assignments are assigned to a whole Subject. All
+                        students enrolled in that subject will receive it.</p>
+                    <form id="assignment-add-form" class="space-y-6">
+                        <div><label class="block text-sm font-bold mb-2">Subject</label><select
+                                id="assignment-subject-id" class="input-field" required></select></div>
+                        <div><label class="block text-sm font-bold mb-2">Assignment Title</label><input type="text"
+                                id="assignment-title" class="input-field" required></div>
+                        <div><label class="block text-sm font-bold mb-2">Instructions</label><textarea
+                                id="assignment-description" class="input-field" rows="3"></textarea></div>
+                        <div><label class="block text-sm font-bold mb-2">Due Date</label><input type="date"
+                                id="assignment-due-date" class="input-field"></div>
+                        <button type="submit" class="btn-primary">Send to Students</button>
+                        <p id="assignment-message" class="text-green-600 text-sm font-bold mt-2 display-none"></p>
+                    </form>
+                </div>
+            </div>
+
+            <div id="attendance" class="section">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-surface-container max-w-xl">
+                    <h3 class="font-headline text-xl font-bold mb-6 flex items-center gap-2"><span
+                            class="material-symbols-outlined text-[#00A3C1]">how_to_reg</span> Daily Attendance</h3>
+                    <form id="attendance-add-form" class="space-y-6">
+                        <div><label class="block text-sm font-bold mb-2">Subject</label><select
+                                id="attendance-subject-id" class="input-field" required></select></div>
+                        <div><label class="block text-sm font-bold mb-2">Student</label><select
+                                id="attendance-student-id" class="input-field" required></select></div>
+                        <div><label class="block text-sm font-bold mb-2">Date</label><input type="date"
+                                id="attendance-date" class="input-field" required></div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Status</label>
+                            <select id="attendance-status" class="input-field font-bold" required>
+                                <option value="Present" class="text-green-600">Present</option>
+                                <option value="Absent" class="text-red-600">Absent</option>
+                                <option value="Late" class="text-yellow-600">Late</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-primary">Log Attendance</button>
+                        <p id="attendance-message" class="text-[#00A3C1] font-bold text-center"></p>
+                    </form>
+                </div>
+            </div>
+
+            <div id="grades" class="section">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-surface-container max-w-2xl">
+                    <h3 class="font-headline text-xl font-bold mb-6 flex items-center gap-2"><span
+                            class="material-symbols-outlined text-[#00A3C1]">grade</span> Post a Grade</h3>
+                    <form id="grade-add-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="md:col-span-2"><label class="block text-sm font-bold mb-2">Student</label><select
+                                id="student-id" class="input-field" required></select></div>
+                        <div class="md:col-span-2"><label class="block text-sm font-bold mb-2">Subject</label><select
+                                id="subject-id" class="input-field" required></select></div>
+                        <div><label class="block text-sm font-bold mb-2">Marks Obtained</label><input type="number"
+                                id="marks-obtained" class="input-field" required></div>
+                        <div><label class="block text-sm font-bold mb-2">Total Marks</label><input type="number"
+                                id="total-marks" class="input-field" required></div>
+                        <div><label class="block text-sm font-bold mb-2">Grade (e.g. A+)</label><input type="text"
+                                id="grade" class="input-field" required></div>
+                        <div><label class="block text-sm font-bold mb-2">Remarks</label><input type="text" id="remarks"
+                                class="input-field"></div>
+                        <div class="md:col-span-2 pt-2"><button type="submit" class="btn-primary">Post Grade</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Tab Switching Logic
+        const titles = {
+            'dashboard': 'Overview Dashboard',
+            'students': 'Student Directory',
+            'subjects': 'Curriculum Subjects',
+            'lessons': 'Course Lessons',
+            'enrollments': 'Student Enrollments',
+            'assignments': 'Manage Assignments',
+            'attendance': 'Attendance Records',
+            'grades': 'Gradebook'
+        };
+
+        function showSection(sectionId, element) {
+            document.querySelectorAll('.section').forEach(sec => {
+                sec.classList.remove('active');
+                sec.style.display = 'none'; // Force hide before re-triggering animation
+                // Trigger reflow
+                void sec.offsetWidth;
+            });
+            const activeSec = document.getElementById(sectionId);
+            activeSec.style.display = 'block';
+            activeSec.classList.add('active');
+
+            document.querySelectorAll('.sidebar-link').forEach(link => link.classList.remove('active'));
+            if (element) element.classList.add('active');
+
+            document.getElementById('page-title').textContent = titles[sectionId] || 'Management Portal';
+        }
+
+        // Set today's date automatically on sections
+        document.addEventListener('DOMContentLoaded', () => {
+            const today = new Date().toISOString().split('T')[0];
+            if (document.getElementById('attendance-date')) document.getElementById('attendance-date').value = today;
+        });
+
+        async function logout() {
+            await fetch('/api/logout', { method: 'POST' });
+            window.location.href = 'adminlogin.html';
+        }
+    </script>
+    <!-- Attach Core Logic File -->
+    <script src="admin.js"></script>
+    <script src="/particles.js"></script>
+</body>
+
+</html>
