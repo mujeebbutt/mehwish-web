@@ -4,13 +4,15 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Admin Login | Mehwish Online Institute</title>
+    <title>Admin Portal | Mehwish Online Institute</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../logo.png" />
+
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -34,15 +36,16 @@
             },
         }
     </script>
-    <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
 
-        .bg-grid-pattern {
-            background-image: radial-gradient(#00A3C1 0.5px, transparent 0.5px);
-            background-size: 24px 24px;
-            opacity: 0.1;
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+
+        /* Particles canvas sits behind everything */
+        #particles-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
         }
 
         .bg-blob {
@@ -55,106 +58,245 @@
         }
 
         .glass-panel {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, .3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        button:disabled { opacity: 0.7; cursor: not-allowed; transform: none !important; }
+
+        .shake { animation: shake 0.5s ease-in-out; }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25%       { transform: translateX(-10px); }
+            75%       { transform: translateX(10px); }
+        }
+
+        /* Subtle fade-in for the card */
+        .login-card {
+            animation: fadeUp 0.5s ease both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 
 <body class="bg-background text-on-surface font-body min-h-screen flex flex-col overflow-x-hidden">
-    <!-- Background Elements -->
-    <div class="fixed inset-0 pointer-events-none -z-10">
+
+    <!-- Particles Background -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Decorative blobs -->
+    <div class="fixed inset-0 pointer-events-none" style="z-index:1;">
         <div class="bg-blob w-[500px] h-[500px] -top-32 -left-32"></div>
         <div class="bg-blob w-[600px] h-[600px] bottom-0 -right-32"></div>
-        <div class="absolute inset-0 bg-grid-pattern"></div>
     </div>
 
-    <header class="w-full z-50 p-8 flex justify-center md:justify-start">
+    <!-- Header -->
+    <header class="w-full z-10 relative p-6 flex items-center justify-between">
         <a href="../index.html" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <span class="material-symbols-outlined text-[#00A3C1]">arrow_back</span>
             <span class="text-xl font-extrabold text-[#00A3C1] tracking-tighter font-headline">Back to Website</span>
         </a>
+
+        <!-- Replaced toggle nav with a simple badge — no register button -->
+        <div class="glass-panel px-5 py-2 rounded-full shadow-sm flex items-center gap-2">
+            <span class="material-symbols-outlined text-[#00A3C1] text-lg">shield</span>
+            <span class="text-sm font-bold text-on-surface-variant">Secure Portal</span>
+        </div>
     </header>
 
-    <main class="flex-grow flex items-center justify-center px-4 py-12">
-        <div class="glass-panel w-full max-w-md rounded-3xl p-10 shadow-2xl relative overflow-hidden">
+    <!-- Main -->
+    <main class="flex-grow flex items-center justify-center px-4 py-8 relative z-10">
+        <div class="login-card glass-panel w-full max-w-md rounded-3xl p-10 shadow-2xl relative overflow-hidden">
+
+            <!-- Top accent bar -->
             <div class="absolute top-0 left-0 w-full h-2 bg-[#00A3C1]"></div>
 
-            <div class="text-center mb-10">
-                <div
-                    class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#00A3C1]/20">
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#00A3C1]/20">
                     <span class="material-symbols-outlined text-3xl text-[#00A3C1]">admin_panel_settings</span>
                 </div>
-                <h1 class="font-headline text-3xl font-extrabold text-on-surface mb-2">Teacher Login</h1>
-                <p class="text-on-surface-variant text-sm">Secure access to the Management Portal.</p>
+                <h1 class="font-headline text-3xl font-extrabold text-on-surface mb-2">Admin Login</h1>
+                <p class="text-on-surface-variant text-sm">Secure access to Management Portal</p>
             </div>
 
-            <form id="login-form" class="space-y-6">
+            <!-- Login Form -->
+            <form id="login-form" class="space-y-5">
                 <div>
-                    <label class="block text-sm font-bold text-on-surface mb-2 font-label"
-                        for="username">Username</label>
+                    <label class="block text-sm font-bold text-on-surface mb-2 font-label">Email Address</label>
                     <div class="relative">
-                        <span
-                            class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline-variant">person</span>
-                        <input id="username" type="text" placeholder="admin" autocomplete="off"
-                            class="w-full pl-12 pr-4 py-3 rounded-xl border border-outline-variant focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all"
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline-variant">person</span>
+                        <input id="login-username" type="email" placeholder="admin@example.com"
+                            class="w-full pl-12 pr-4 py-3 rounded-xl border border-outline-variant focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all bg-white/70"
                             required>
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-bold text-on-surface mb-2 font-label"
-                        for="password">Password</label>
+                    <label class="block text-sm font-bold text-on-surface mb-2 font-label">Password</label>
                     <div class="relative">
-                        <span
-                            class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline-variant">lock</span>
-                        <input id="password" type="password" placeholder="••••••••"
-                            class="w-full pl-12 pr-4 py-3 rounded-xl border border-outline-variant focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all"
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline-variant">lock</span>
+                        <input id="login-password" type="password" placeholder="Enter password"
+                            class="w-full pl-12 pr-4 py-3 rounded-xl border border-outline-variant focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all bg-white/70"
                             required>
                     </div>
                 </div>
 
-                <button type="submit"
-                    class="w-full py-4 bg-[#2d3335] text-white rounded-full font-bold text-lg shadow-lg hover:bg-black hover:translate-y-[-1px] transition-all">
+                <button type="submit" id="login-btn"
+                    class="w-full py-4 bg-[#00A3C1] text-white rounded-full font-bold text-lg shadow-lg hover:shadow-[#00A3C1]/30 hover:translate-y-[-1px] transition-all">
                     Enter Dashboard
                 </button>
-
-                <p id="message" class="text-center text-sm font-bold mt-4 text-[#a83836] h-5"></p>
             </form>
+
+            <p id="message" class="text-center text-sm font-bold mt-6 h-5"></p>
         </div>
     </main>
 
+    <!-- Particles.js library -->
+    <script src="../particles.js"></script>
+
+    <!-- Init particles -->
     <script>
-        document.getElementById('login-form').addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value;
-            const messageElement = document.getElementById('message');
+        (function () {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let W, H, particles = [];
+
+            function resize() {
+                W = canvas.width  = window.innerWidth;
+                H = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            // If particles.js library loaded (expects window.particlesJS), init it.
+            // Otherwise fall back to our own lightweight implementation.
+            if (typeof particlesJS !== 'undefined') {
+                // Use a hidden div for particles.js target; render on canvas via our fallback
+                // particles.js targets a DOM element, so we delegate to fallback canvas instead.
+            }
+
+            // Lightweight canvas particle fallback (works with or without particles.js)
+            const COLOR = '#00A3C1';
+            const COUNT = 60;
+
+            for (let i = 0; i < COUNT; i++) {
+                particles.push({
+                    x: Math.random() * W,
+                    y: Math.random() * H,
+                    r: Math.random() * 2 + 1,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4,
+                    alpha: Math.random() * 0.5 + 0.1
+                });
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+
+                // Draw connection lines
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 120) {
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(0,163,193,${0.15 * (1 - dist / 120)})`;
+                            ctx.lineWidth = 0.8;
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                // Draw dots
+                particles.forEach(p => {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(0,163,193,${p.alpha})`;
+                    ctx.fill();
+
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.x < 0 || p.x > W) p.vx *= -1;
+                    if (p.y < 0 || p.y > H) p.vy *= -1;
+                });
+
+                requestAnimationFrame(draw);
+            }
+
+            draw();
+        })();
+    </script>
+
+    <!-- Firebase Login Logic -->
+    <script type="module">
+        import { auth, db } from "../firebase.js";
+        import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+        import { doc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+
+        const messageElement = document.getElementById('message');
+
+        function notify(msg, isError = false) {
+            messageElement.style.color = isError ? '#a83836' : '#00687c';
+            messageElement.textContent = msg;
+            if (isError) {
+                messageElement.classList.add('shake');
+                setTimeout(() => messageElement.classList.remove('shake'), 500);
+            }
+        }
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email    = document.getElementById('login-username').value.trim();
+            const password = document.getElementById('login-password').value;
+            const btn      = document.getElementById('login-btn');
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading-spinner"></span> Checking...';
 
             try {
-                const response = await fetch('/api/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
-                });
-                const data = await response.json();
+                const cred    = await signInWithEmailAndPassword(auth, email, password);
+                const userDoc = await getDoc(doc(db, "users", cred.user.uid));
 
-                if (response.ok) {
-                    messageElement.style.color = '#00687c';
-                    messageElement.textContent = "Access Granted...";
-                    setTimeout(() => window.location.href = 'admin.html', 800);
+                if (userDoc.exists() && userDoc.data().role === 'admin') {
+                    notify('Access Granted! Redirecting...');
+                    setTimeout(() => window.location.href = 'admin.html', 1000);
                 } else {
-                    messageElement.style.color = '#a83836';
-                    messageElement.textContent = data.message || "Invalid credentials.";
+                    await auth.signOut();
+                    notify('Access Denied. Admins only.', true);
+                    btn.disabled = false;
+                    btn.innerHTML = 'Enter Dashboard';
                 }
-            } catch (e) {
-                messageElement.style.color = '#a83836';
-                messageElement.textContent = "Server error. Is the backend running?";
+            } catch (err) {
+                notify('Invalid credentials.', true);
+                btn.disabled = false;
+                btn.innerHTML = 'Enter Dashboard';
             }
         });
     </script>
-    <script src="/particles.js"></script>
-</body>
 
+</body>
 </html>

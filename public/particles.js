@@ -1,5 +1,6 @@
 // public/particles.js
-(function () {
+document.addEventListener('DOMContentLoaded', () => {
+    // 1️⃣ Add the CSS for particles
     const style = document.createElement('style');
     style.textContent = `
         .student-particle {
@@ -20,20 +21,25 @@
     `;
     document.head.appendChild(style);
 
-    // geometry, pencil, scale, rubber, etc.
-    const icons = ['architecture', 'straighten', 'edit', 'ink_eraser', 'functions', 'calculate', 'change_history', 'square', 'circle', 'palette'];
+    // 2️⃣ Define icons and number of particles
+    const icons = [
+        'architecture', 'straighten', 'edit', 'ink_eraser',
+        'functions', 'calculate', 'change_history', 'square',
+        'circle', 'palette'
+    ];
     const numParticles = 12;
 
+    // 3️⃣ Create particles
     for (let i = 0; i < numParticles; i++) {
         const span = document.createElement('span');
         span.className = 'material-symbols-outlined student-particle';
         span.textContent = icons[Math.floor(Math.random() * icons.length)];
 
-        // Large, blending background elements
+        // Random size, position, duration, delay
         const size = Math.random() * 180 + 100; // 100px to 280px
-        const left = Math.random() * 100; // 0% to 100%
+        const left = Math.random() * 100;       // 0% to 100%
         const duration = Math.random() * 40 + 30; // 30s to 70s
-        const delay = Math.random() * -70; // Start at different times
+        const delay = Math.random() * -70;      // Start at different times
 
         span.style.fontSize = `${size}px`;
         span.style.left = `${left}vw`;
@@ -42,4 +48,4 @@
 
         document.body.appendChild(span);
     }
-})();
+});

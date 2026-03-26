@@ -1,484 +1,866 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Teacher Dashboard | Mehwish Online Institute</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../logo.png" />
+    
+
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet" />
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "on-surface-variant": "#5a6062",
-                        "primary": "#00687c",
-                        "background": "#f8f9fa",
-                        "on-surface": "#2d3335",
-                        "outline-variant": "#adb3b5",
-                        "surface-container": "#ebeef0",
-                    },
-                    fontFamily: {
-                        "headline": ["Plus Jakarta Sans"],
-                        "body": ["Manrope"],
-                        "label": ["Manrope"]
-                    },
-                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
-                },
-            },
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
     <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        * { box-sizing: border-box; }
+        body { margin:0; font-family:'Manrope',sans-serif; background:#f0f4f8; overflow:hidden; }
+        .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+
+        /* Particles */
+        #particles-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
+
+        /* Shell */
+        .app-shell { display:flex; height:100vh; position:relative; z-index:1; }
+
+        /* Sidebar */
+        aside {
+            width:255px; flex-shrink:0;
+            background:#0f1923;
+            display:flex; flex-direction:column;
+            box-shadow:4px 0 24px rgba(0,0,0,0.3);
+            z-index:10;
         }
-
-        .bg-grid-pattern {
-            background-image: radial-gradient(#00A3C1 0.5px, transparent 0.5px);
-            background-size: 24px 24px;
-            opacity: 0.1;
+        .sidebar-logo {
+            padding:24px 20px 18px;
+            border-bottom:1px solid rgba(255,255,255,0.07);
+            display:flex; align-items:center; gap:12px;
         }
-
-        .bg-blob {
-            position: absolute;
-            border-radius: 9999px;
-            filter: blur(80px);
-            z-index: -1;
-            opacity: 0.08;
-            background-color: #00A3C1;
+        .logo-icon {
+            width:38px; height:38px; border-radius:10px;
+            background:linear-gradient(135deg,#00A3C1,#00687c);
+            display:flex; align-items:center; justify-content:center;
+            box-shadow:0 4px 12px rgba(0,163,193,0.4);
+            flex-shrink:0;
         }
+        .logo-icon .material-symbols-outlined { color:#fff; font-size:20px; }
+        .logo-text h1 { color:#fff; font-family:'Plus Jakarta Sans'; font-weight:800; font-size:14px; margin:0; line-height:1.2; }
+        .logo-text p  { color:#4a6a7a; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.09em; margin:3px 0 0; }
 
-        .section {
-            display: none;
+        nav.sidebar-nav { flex:1; padding:12px 10px; overflow-y:auto; }
+        .nav-sep {
+            font-size:10px; font-weight:800; color:#2a4a5a;
+            text-transform:uppercase; letter-spacing:.1em;
+            padding:14px 12px 5px; display:block;
         }
-
-        .section.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         .sidebar-link {
-            display: flex;
-            items-center;
-            gap: 12px;
-            padding: 12px 20px;
-            color: #a0aec0;
-            border-radius: 12px;
-            font-weight: 700;
-            transition: all 0.2s;
+            display:flex; align-items:center; gap:10px;
+            padding:10px 13px; border-radius:10px;
+            color:#5a7a8a; font-weight:700; font-size:13px;
+            text-decoration:none; transition:all .2s; margin-bottom:1px;
+            cursor:pointer;
         }
-
-        .sidebar-link:hover {
-            background-color: rgba(0, 163, 193, 0.1);
-            color: #00A3C1;
-        }
-
+        .sidebar-link .material-symbols-outlined { font-size:19px; flex-shrink:0; }
+        .sidebar-link:hover { background:rgba(0,163,193,0.1); color:#00A3C1; }
         .sidebar-link.active {
-            background-color: #00A3C1;
-            color: white;
-            box-shadow: 0 4px 15px rgba(0, 163, 193, 0.3);
+            background:linear-gradient(135deg,#00A3C1,#00687c);
+            color:#fff;
+            box-shadow:0 4px 14px rgba(0,163,193,0.35);
         }
+        .sidebar-footer { padding:12px 10px 20px; border-top:1px solid rgba(255,255,255,0.07); }
+        .logout-btn {
+            display:flex; align-items:center; gap:10px;
+            padding:10px 13px; border-radius:10px;
+            color:#5a7a8a; font-weight:700; font-size:13px;
+            background:none; border:none; cursor:pointer; width:100%;
+            transition:all .2s;
+        }
+        .logout-btn:hover { background:rgba(239,68,68,0.12); color:#ef4444; }
 
+        /* Main */
+        main.content { flex:1; overflow-y:auto; overflow-x:hidden; display:flex; flex-direction:column; }
+
+        .topbar {
+            position:sticky; top:0; z-index:5;
+            background:rgba(240,244,248,0.9);
+            backdrop-filter:blur(14px);
+            border-bottom:1px solid rgba(0,0,0,0.06);
+            padding:14px 28px;
+            display:flex; align-items:center; justify-content:space-between;
+        }
+        .topbar h2 { font-family:'Plus Jakarta Sans'; font-size:20px; font-weight:800; color:#1a2a35; margin:0; }
+        .topbar p  { font-size:12px; color:#7a9aaa; margin:2px 0 0; font-weight:500; }
+        .user-chip {
+            display:flex; align-items:center; gap:10px;
+            background:#fff; border:1px solid #dce8ee;
+            border-radius:999px; padding:5px 14px 5px 5px;
+            box-shadow:0 2px 8px rgba(0,0,0,0.05);
+        }
+        .user-avatar {
+            width:30px; height:30px; border-radius:50%;
+            background:linear-gradient(135deg,#00A3C1,#00687c);
+            display:flex; align-items:center; justify-content:center;
+        }
+        .user-avatar .material-symbols-outlined { color:#fff; font-size:17px; }
+        .user-chip .uname { font-size:13px; font-weight:700; color:#2d3335; }
+        .user-chip .urole { display:block; font-size:10px; color:#00A3C1; font-weight:700; }
+
+        /* Page body */
+        .page-body { padding:24px 28px; flex:1; }
+
+        /* Sections */
+        .section { display:none; }
+        .section.active { display:block; animation:fadeIn .3s ease; }
+        @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+        /* Cards */
+        .card {
+            background:#fff; border-radius:18px;
+            border:1px solid #e4ecf0;
+            box-shadow:0 2px 14px rgba(0,0,0,0.04);
+            padding:24px 28px; margin-bottom:20px;
+        }
+        .card-title {
+            font-family:'Plus Jakarta Sans'; font-size:15px; font-weight:800;
+            color:#1a2a35; margin:0 0 18px;
+            display:flex; align-items:center; gap:8px;
+        }
+        .card-title .material-symbols-outlined { color:#00A3C1; font-size:21px; }
+
+        /* Stats */
+        .stats-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:14px; margin-bottom:20px; }
+        .stat-card {
+            background:#fff; border-radius:16px; border:1px solid #e4ecf0;
+            box-shadow:0 2px 10px rgba(0,0,0,0.04);
+            padding:18px 20px; display:flex; align-items:center; gap:14px;
+        }
+        .stat-icon { width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+        .stat-icon .material-symbols-outlined { font-size:24px; }
+        .stat-label { font-size:10px; font-weight:800; color:#8aaabb; text-transform:uppercase; letter-spacing:.07em; margin:0; }
+        .stat-value { font-family:'Plus Jakarta Sans'; font-size:26px; font-weight:800; color:#1a2a35; margin:2px 0 0; line-height:1; }
+
+        /* Banner */
+        .banner {
+            background:linear-gradient(135deg,#00A3C1 0%,#00687c 100%);
+            border-radius:18px; padding:28px 32px; color:#fff;
+            position:relative; overflow:hidden;
+        }
+        .banner::before { content:''; position:absolute; top:-30px; right:-30px; width:180px; height:180px; border-radius:50%; background:rgba(255,255,255,0.07); }
+        .banner::after  { content:''; position:absolute; bottom:-50px; right:60px;  width:130px; height:130px; border-radius:50%; background:rgba(255,255,255,0.05); }
+        .banner h2 { font-family:'Plus Jakarta Sans'; font-size:22px; font-weight:800; margin:0 0 5px; position:relative; z-index:1; }
+        .banner p  { color:rgba(255,255,255,.75); font-size:13px; margin:0; position:relative; z-index:1; }
+
+        /* Forms */
+        .form-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; }
+        .form-group { display:flex; flex-direction:column; gap:5px; }
+        .form-group.full { grid-column:1/-1; }
+        .form-label { font-size:11px; font-weight:800; color:#4a6070; text-transform:uppercase; letter-spacing:.06em; }
         .input-field {
-            width: 100%;
-            padding: 12px 16px;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-            font-size: 0.875rem;
-            transition: all 0.2s;
-            outline: none;
+            width:100%; padding:10px 13px; border-radius:9px;
+            border:1.5px solid #dce6ec; font-size:13.5px;
+            font-family:'Manrope',sans-serif; color:#2d3335;
+            background:#fafcfd; outline:none; transition:all .2s;
         }
-
-        .input-field:focus {
-            border-color: #00A3C1;
-            box-shadow: 0 0 0 3px rgba(0, 163, 193, 0.1);
-        }
+        .input-field:focus { border-color:#00A3C1; box-shadow:0 0 0 3px rgba(0,163,193,0.1); background:#fff; }
+        textarea.input-field { resize:vertical; min-height:80px; }
+        .form-actions { margin-top:18px; }
 
         .btn-primary {
-            background-color: #00A3C1;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 999px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-size: 0.875rem;
-            transition: all 0.2s;
-            box-shadow: 0 4px 10px rgba(0, 163, 193, 0.2);
-            width: 100%;
-            cursor: pointer;
+            background:linear-gradient(135deg,#00A3C1,#00687c);
+            color:#fff; padding:11px 26px; border-radius:999px;
+            font-weight:800; font-size:12.5px; text-transform:uppercase;
+            letter-spacing:.06em; border:none; cursor:pointer;
+            box-shadow:0 4px 14px rgba(0,163,193,0.3);
+            transition:all .2s; display:inline-flex; align-items:center; gap:7px;
         }
+        .btn-primary:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,163,193,0.4); }
+        .btn-primary .material-symbols-outlined { font-size:17px; }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 163, 193, 0.3);
+        /* Tables */
+        .table-wrap { overflow-x:auto; }
+        table { width:100%; border-collapse:collapse; }
+        thead tr { border-bottom:2px solid #edf2f5; }
+        thead th { padding:9px 14px; font-size:10.5px; font-weight:800; color:#8aaabb; text-transform:uppercase; letter-spacing:.07em; text-align:left; white-space:nowrap; }
+        tbody tr { border-bottom:1px solid #f0f4f7; transition:background .15s; }
+        tbody tr:last-child { border-bottom:none; }
+        tbody tr:hover { background:#f7fbfd; }
+        tbody td { padding:12px 14px; font-size:13px; color:#2d3335; }
+        .badge { display:inline-flex; align-items:center; padding:3px 9px; border-radius:999px; font-size:11px; font-weight:800; }
+        .badge-green  { background:#dcfce7; color:#16a34a; }
+        .badge-red    { background:#fee2e2; color:#dc2626; }
+        .badge-blue   { background:#dbeafe; color:#2563eb; }
+        .badge-yellow { background:#fef9c3; color:#ca8a04; }
+        .icon-btn { background:none; border:none; cursor:pointer; padding:4px; border-radius:6px; transition:background .15s; display:inline-flex; }
+        .icon-btn:hover { background:#fee2e2; }
+        .icon-btn .material-symbols-outlined { font-size:19px; color:#ef4444; }
+
+        /* Toast */
+        .toast {
+            position:fixed; bottom:22px; right:22px; z-index:9999;
+            padding:13px 20px; border-radius:12px; color:#fff;
+            font-weight:800; font-size:13.5px; font-family:'Manrope',sans-serif;
+            animation:slideIn .3s ease; box-shadow:0 8px 24px rgba(0,0,0,0.15);
+            display:flex; align-items:center; gap:9px;
         }
+        @keyframes slideIn { from{transform:translateX(120%);opacity:0} to{transform:translateX(0);opacity:1} }
+        .toast.success { background:linear-gradient(135deg,#10b981,#059669); }
+        .toast.error   { background:linear-gradient(135deg,#ef4444,#dc2626); }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width:5px; height:5px; }
+        ::-webkit-scrollbar-track { background:transparent; }
+        ::-webkit-scrollbar-thumb { background:#c0d0d8; border-radius:99px; }
     </style>
 </head>
+<body>
 
-<body class="bg-background text-on-surface font-body overflow-hidden">
-    <div class="fixed inset-0 pointer-events-none -z-10">
-        <div class="bg-blob w-[500px] h-[500px] top-0 left-1/4"></div>
-        <div class="bg-blob w-[600px] h-[600px] bottom-0 right-1/4"></div>
-        <div class="absolute inset-0 bg-grid-pattern"></div>
-    </div>
+<canvas id="particles-canvas"></canvas>
 
-    <div class="flex h-screen">
-        <!-- Sidebar -->
-        <aside class="w-72 bg-[#1a202c] shadow-2xl flex flex-col z-20">
-            <div class="p-8 pb-6 flex items-center gap-3 border-b border-gray-700/50">
-                <div
-                    class="w-10 h-10 rounded-full bg-[#00A3C1] flex items-center justify-center text-white shadow-lg shadow-[#00A3C1]/30">
-                    <span class="material-symbols-outlined text-xl">admin_panel_settings</span>
-                </div>
+<div class="app-shell">
+
+    <!-- SIDEBAR -->
+    <aside>
+        <div class="sidebar-logo">
+            <div class="logo-icon"><span class="material-symbols-outlined">school</span></div>
+            <div class="logo-text">
+                <h1>Mehwish Institute</h1>
+                <p>Admin Portal</p>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a class="sidebar-link active" onclick="showSection('dashboard',this)">
+                <span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+
+            <span class="nav-sep">People</span>
+            <a class="sidebar-link" onclick="showSection('students',this)">
+                <span class="material-symbols-outlined">group</span> Students
+            </a>
+
+            <span class="nav-sep">Academics</span>
+            <a class="sidebar-link" onclick="showSection('subjects',this)">
+                <span class="material-symbols-outlined">library_books</span> Subjects
+            </a>
+            <a class="sidebar-link" onclick="showSection('lessons',this)">
+                <span class="material-symbols-outlined">play_lesson</span> Lessons
+            </a>
+            <a class="sidebar-link" onclick="showSection('enrollments',this)">
+                <span class="material-symbols-outlined">how_to_reg</span> Enrollments
+            </a>
+
+            <span class="nav-sep">Daily Tasks</span>
+            <a class="sidebar-link" onclick="showSection('assignments',this)">
+                <span class="material-symbols-outlined">assignment</span> Assignments
+            </a>
+            <a class="sidebar-link" onclick="showSection('attendance',this)">
+                <span class="material-symbols-outlined">fact_check</span> Attendance
+            </a>
+            <a class="sidebar-link" onclick="showSection('grades',this)">
+                <span class="material-symbols-outlined">workspace_premium</span> Grades
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="logout-btn" onclick="logout()">
+                <span class="material-symbols-outlined">logout</span> Log Out
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="content">
+        <div class="topbar">
+            <div>
+                <h2 id="page-title">Overview Dashboard</h2>
+                <p>Manage your institute efficiently</p>
+            </div>
+            <div class="user-chip">
+                <div class="user-avatar"><span class="material-symbols-outlined">person</span></div>
                 <div>
-                    <h1 class="font-headline font-black text-white leading-tight">Teacher Portal</h1>
-                    <p class="text-xs text-gray-400 font-bold uppercase tracking-wider">Management</p>
+                    <span class="uname" id="teacher-name">Loading...</span>
+                    <span class="urole">Head Instructor</span>
                 </div>
             </div>
+        </div>
 
-            <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
-                <a href="#" class="sidebar-link active" onclick="showSection('dashboard', this)">
-                    <span class="material-symbols-outlined">dashboard</span> Dashboard
-                </a>
-                <div class="pt-4 pb-2 px-4 text-xs font-black text-gray-500 uppercase tracking-widest">People</div>
-                <a href="#" class="sidebar-link" onclick="showSection('students', this)">
-                    <span class="material-symbols-outlined">group</span> Students
-                </a>
-                <div class="pt-4 pb-2 px-4 text-xs font-black text-gray-500 uppercase tracking-widest">Academics</div>
-                <a href="#" class="sidebar-link" onclick="showSection('subjects', this)">
-                    <span class="material-symbols-outlined">library_books</span> Subjects
-                </a>
-                <a href="#" class="sidebar-link" onclick="showSection('lessons', this)">
-                    <span class="material-symbols-outlined">play_lesson</span> Lessons
-                </a>
-                <a href="#" class="sidebar-link" onclick="showSection('enrollments', this)">
-                    <span class="material-symbols-outlined">how_to_reg</span> Enrollments
-                </a>
-                <div class="pt-4 pb-2 px-4 text-xs font-black text-gray-500 uppercase tracking-widest">Daily Tasks</div>
-                <a href="#" class="sidebar-link" onclick="showSection('assignments', this)">
-                    <span class="material-symbols-outlined">assignment</span> Assignments
-                </a>
-                <a href="#" class="sidebar-link" onclick="showSection('attendance', this)">
-                    <span class="material-symbols-outlined">fact_check</span> Attendance
-                </a>
-                <a href="#" class="sidebar-link" onclick="showSection('grades', this)">
-                    <span class="material-symbols-outlined">workspace_premium</span> Grades
-                </a>
-            </nav>
+        <div class="page-body">
 
-            <div class="p-6 border-t border-gray-700/50">
-                <button onclick="logout()"
-                    class="flex items-center gap-3 text-gray-400 hover:text-white font-bold transition-colors w-full">
-                    <span class="material-symbols-outlined">logout</span> Log Out
-                </button>
-            </div>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto overflow-x-hidden p-10 relative">
-            <header
-                class="flex justify-between items-center mb-10 bg-white/50 backdrop-blur-md p-6 rounded-3xl border border-surface-container shadow-sm">
-                <div>
-                    <h2 id="page-title" class="font-headline text-3xl font-black text-on-surface">Overview Dashboard
-                    </h2>
-                    <p class="text-sm font-medium text-on-surface-variant">Manage your institute efficiently.</p>
-                </div>
-                <div class="flex items-center gap-4">
-                    <div class="text-right">
-                        <p class="font-bold text-sm">Mehwish Butt</p>
-                        <p class="text-xs text-[#00A3C1] font-bold">Head Instructor</p>
-                    </div>
-                    <div
-                        class="w-12 h-12 bg-surface-container rounded-full flex items-center justify-center border-2 border-white shadow-sm overflow-hidden">
-                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3KocL1dE_jf1PshYIk2clP4afqjHO1Q535Jfp4k4mR42v4FfHu5FekPTUgeRnyw1M-Oznd-SmhO13jmlGsQ6rT2WGepjyRx_wE6WkSMSU5qneNMVv_JPKarh50grImwXEFcVAMBbvnWZNOglJTkro7XjAjW9dGFuuxdIK1ERuseilDb8xZZlLiryVrjPDZJM-l-T1JmjHwv5LLPyZfcPsWWQDjMmZybdHqvWBxb_cwm0n3tOxk_NPxhYYwa8mbe2-sGt9LUxAgKY"
-                            alt="Profile" class="w-full h-full object-cover">
-                    </div>
-                </div>
-            </header>
-
-            <!-- Sections -->
+            <!-- DASHBOARD -->
             <div id="dashboard" class="section active">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-                    <div
-                        class="bg-white p-6 rounded-3xl shadow-sm border border-surface-container flex items-center gap-4">
-                        <div
-                            class="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-3xl">
-                            <span class="material-symbols-outlined">group</span>
-                        </div>
-                        <div>
-                            <p class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Total Students
-                            </p>
-                            <h3 class="font-black text-2xl">Active</h3>
-                        </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:#dbeafe"><span class="material-symbols-outlined" style="color:#2563eb">group</span></div>
+                        <div><p class="stat-label">Students</p><p class="stat-value" id="total-students">0</p></div>
                     </div>
-                    <div
-                        class="bg-white p-6 rounded-3xl shadow-sm border border-surface-container flex items-center gap-4">
-                        <div
-                            class="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-3xl">
-                            <span class="material-symbols-outlined">library_books</span>
-                        </div>
-                        <div>
-                            <p class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Subjects</p>
-                            <h3 class="font-black text-2xl">Manage</h3>
-                        </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:#ede9fe"><span class="material-symbols-outlined" style="color:#7c3aed">library_books</span></div>
+                        <div><p class="stat-label">Subjects</p><p class="stat-value" id="total-subjects">0</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:#dcfce7"><span class="material-symbols-outlined" style="color:#16a34a">play_lesson</span></div>
+                        <div><p class="stat-label">Lessons</p><p class="stat-value" id="total-lessons">0</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:#fef9c3"><span class="material-symbols-outlined" style="color:#ca8a04">assignment</span></div>
+                        <div><p class="stat-label">Assignments</p><p class="stat-value" id="total-assignments">0</p></div>
                     </div>
                 </div>
-                <div
-                    class="bg-[#00A3C1] rounded-3xl p-10 text-white relative overflow-hidden shadow-lg shadow-[#00A3C1]/20">
-                    <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-2xl"></div>
-                    <h2 class="font-headline text-3xl font-extrabold mb-2 relative z-10">Welcome back, Admin!</h2>
-                    <p class="text-white/80 font-medium relative z-10 max-w-lg mb-6">Use the sidebar to add new
-                        students, create subjects, upload lessons, and mark daily attendance.</p>
-                    <button onclick="showSection('students', document.querySelectorAll('.sidebar-link')[1])"
-                        class="bg-white text-[#00A3C1] px-6 py-2.5 rounded-full font-bold text-sm hover:scale-105 transition-transform shadow-lg relative z-10">Register
-                        a Student</button>
+                <div class="banner">
+                    <h2>Welcome back, <span id="banner-name">Admin</span>!</h2>
+                    <p>Use the sidebar to manage students, curriculum, and daily institute operations.</p>
                 </div>
             </div>
 
+            <!-- STUDENTS -->
             <div id="students" class="section">
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-surface-container mb-8">
-                    <h3 class="font-headline text-xl font-bold mb-6 flex items-center gap-2"><span
-                            class="material-symbols-outlined text-[#00A3C1]">person_add</span> Register New Student</h3>
-                    <form id="student-add-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div><label class="block text-sm font-bold mb-2">Full Name</label><input type="text"
-                                id="student-name" class="input-field" required></div>
-                        <div><label class="block text-sm font-bold mb-2">Class / Year</label><input type="text"
-                                id="student-class" class="input-field" required></div>
-                        <div><label class="block text-sm font-bold mb-2">Email (Login ID)</label><input type="email"
-                                id="student-email" class="input-field" required></div>
-                        <div><label class="block text-sm font-bold mb-2">Password</label><input type="text"
-                                id="student-password" class="input-field" required></div>
-                        <div class="md:col-span-2 pt-2"><button type="submit" class="btn-primary">Create Student
-                                Account</button></div>
-                    </form>
-                </div>
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-surface-container">
-                    <h3 class="font-headline text-lg font-bold mb-6">Student Roster</h3>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse" id="students-table">
-                            <thead>
-                                <tr
-                                    class="text-xs font-bold text-on-surface-variant uppercase border-b border-surface-container">
-                                    <th class="py-4 pr-6">ID</th>
-                                    <th class="py-4 pr-6">Name</th>
-                                    <th class="py-4 pr-6">Email</th>
-                                    <th class="py-4">Class</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td colspan="4" class="py-6 text-center text-sm text-gray-500">Loading students...
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div id="subjects" class="section">
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-surface-container mb-8">
-                    <h3 class="font-headline text-xl font-bold mb-6 flex items-center gap-2"><span
-                            class="material-symbols-outlined text-[#00A3C1]">add_box</span> Create a Subject</h3>
-                    <form id="subject-add-form" class="space-y-6">
-                        <div><label class="block text-sm font-bold mb-2">Subject Name</label><input type="text"
-                                id="subject-name" class="input-field" placeholder="e.g. O-Level Mathematics" required>
+                <div class="card">
+                    <h3 class="card-title"><span class="material-symbols-outlined">person_add</span> Register New Student</h3>
+                    <form id="student-add-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" id="student-name-input" class="input-field" placeholder="e.g. Ayesha Khan" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Class / Year</label>
+                                <input type="text" id="student-class-input" class="input-field" placeholder="e.g. O-Level Year 2" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email (Login ID)</label>
+                                <input type="email" id="student-email-input" class="input-field" placeholder="student@email.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Password</label>
+                                <input type="password" id="student-password-input" class="input-field" placeholder="Min 6 characters" required>
+                            </div>
                         </div>
-                        <div><label class="block text-sm font-bold mb-2">Description</label><textarea
-                                id="subject-description" class="input-field" rows="3"></textarea></div>
-                        <button type="submit" class="btn-primary">Create Subject</button>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary"><span class="material-symbols-outlined">person_add</span> Create Student</button>
+                        </div>
                     </form>
                 </div>
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-surface-container">
-                    <h3 class="font-headline text-lg font-bold mb-6">Existing Subjects</h3>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse" id="subjects-table">
-                            <thead>
-                                <tr
-                                    class="text-xs font-bold text-on-surface-variant uppercase border-b border-surface-container">
-                                    <th class="py-4 pr-6">ID</th>
-                                    <th class="py-4 pr-6">Name</th>
-                                    <th class="py-4">Description</th>
-                                </tr>
-                            </thead>
+                <div class="card">
+                    <h3 class="card-title"><span class="material-symbols-outlined">group</span> Student Roster</h3>
+                    <div class="table-wrap">
+                        <table id="students-table">
+                            <thead><tr><th>Name</th><th>Email</th><th>Class</th><th>Status</th></tr></thead>
                             <tbody></tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
+            <!-- SUBJECTS -->
+            <div id="subjects" class="section">
+                <div class="card">
+                    <h3 class="card-title"><span class="material-symbols-outlined">add_box</span> Create a Subject</h3>
+                    <form id="subject-add-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Subject Name</label>
+                                <input type="text" id="subject-name" class="input-field" placeholder="e.g. O-Level Mathematics" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Description</label>
+                                <textarea id="subject-description" class="input-field" placeholder="Brief description..."></textarea>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary"><span class="material-symbols-outlined">add</span> Create Subject</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card">
+                    <h3 class="card-title"><span class="material-symbols-outlined">library_books</span> All Subjects</h3>
+                    <div class="table-wrap">
+                        <table id="subjects-table">
+                            <thead><tr><th>Name</th><th>Description</th><th>Action</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LESSONS -->
             <div id="lessons" class="section">
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-surface-container max-w-2xl">
-                    <h3 class="font-headline text-xl font-bold mb-6 flex items-center gap-2"><span
-                            class="material-symbols-outlined text-[#00A3C1]">video_file</span> Add a New Lesson</h3>
-                    <form id="lesson-add-form" class="space-y-6">
-                        <div><label class="block text-sm font-bold mb-2">Subject</label><select id="lesson-subject-id"
-                                class="input-field" required></select></div>
-                        <div><label class="block text-sm font-bold mb-2">Lesson Title</label><input type="text"
-                                id="lesson-title" class="input-field" required></div>
-                        <div><label class="block text-sm font-bold mb-2">Lesson Content (Notes)</label><textarea
-                                id="lesson-content" class="input-field" rows="4"></textarea></div>
-                        <div><label class="block text-sm font-bold mb-2">Video/YouTube URL</label><input type="url"
-                                id="lesson-video-url" class="input-field" placeholder="https://..."></div>
-                        <div><label class="block text-sm font-bold mb-2">Order/Week #</label><input type="number"
-                                id="lesson-order" class="input-field" value="1" required></div>
-                        <button type="submit" class="btn-primary">Publish Lesson</button>
+                <div class="card">
+                    <h3 class="card-title"><span class="material-symbols-outlined">video_file</span> Add a New Lesson</h3>
+                    <form id="lesson-add-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Subject</label>
+                                <select id="lesson-subject-id" class="input-field" required></select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Lesson Title</label>
+                                <input type="text" id="lesson-title" class="input-field" placeholder="e.g. Introduction to Algebra" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Video URL</label>
+                                <input type="url" id="lesson-video-url" class="input-field" placeholder="https://youtube.com/...">
+                            </div>
+                            <div class="form-group full">
+                                <label class="form-label">Lesson Notes / Content</label>
+                                <textarea id="lesson-content" class="input-field" placeholder="Lesson notes..."></textarea>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary"><span class="material-symbols-outlined">publish</span> Publish Lesson</button>
+                        </div>
                     </form>
                 </div>
             </div>
 
+            <!-- ENROLLMENTS -->
             <div id="enrollments" class="section">
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-surface-container max-w-xl">
-                    <h3 class="font-headline text-xl font-bold mb-6 flex items-center gap-2"><span
-                            class="material-symbols-outlined text-[#00A3C1]">assignment_ind</span> Enroll Student in
-                        Subject</h3>
-                    <p
-                        class="text-sm text-on-surface-variant leading-relaxed mb-6 bg-blue-50 p-4 rounded-xl border border-blue-100">
-                        Students cannot see any lessons until you explicitly enroll them into a subject.</p>
-                    <form id="enroll-student-form" class="space-y-6">
-                        <div><label class="block text-sm font-bold mb-2">Student</label><select id="enroll-student-id"
-                                class="input-field" required></select></div>
-                        <div><label class="block text-sm font-bold mb-2">Subject</label><select id="enroll-subject-id"
-                                class="input-field" required></select></div>
-                        <button type="submit" class="btn-primary">Enroll Student</button>
+                <div class="card">
+                    <h3 class="card-title"><span class="material-symbols-outlined">assignment_ind</span> Enroll a Student</h3>
+                    <form id="enroll-student-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Student</label>
+                                <select id="enroll-student-id" class="input-field" required></select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Subject</label>
+                                <select id="enroll-subject-id" class="input-field" required></select>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary"><span class="material-symbols-outlined">how_to_reg</span> Enroll Student</button>
+                        </div>
                     </form>
+                </div>
+                <div class="card">
+                    <h3 class="card-title"><span class="material-symbols-outlined">list_alt</span> Enrollment Records</h3>
+                    <div class="table-wrap">
+                        <table id="enrollments-table">
+                            <thead><tr><th>Student</th><th>Subject</th><th>Enrolled At</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
+            <!-- ASSIGNMENTS (was completely missing before!) -->
             <div id="assignments" class="section">
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-surface-container max-w-2xl">
-                    <h3 class="font-headline text-xl font-bold mb-6 flex items-center gap-2"><span
-                            class="material-symbols-outlined text-[#00A3C1]">task</span> Distribute Assignment</h3>
-                    <p class="text-sm text-on-surface-variant mb-6">Assignments are assigned to a whole Subject. All
-                        students enrolled in that subject will receive it.</p>
-                    <form id="assignment-add-form" class="space-y-6">
-                        <div><label class="block text-sm font-bold mb-2">Subject</label><select
-                                id="assignment-subject-id" class="input-field" required></select></div>
-                        <div><label class="block text-sm font-bold mb-2">Assignment Title</label><input type="text"
-                                id="assignment-title" class="input-field" required></div>
-                        <div><label class="block text-sm font-bold mb-2">Instructions</label><textarea
-                                id="assignment-description" class="input-field" rows="3"></textarea></div>
-                        <div><label class="block text-sm font-bold mb-2">Due Date</label><input type="date"
-                                id="assignment-due-date" class="input-field"></div>
-                        <button type="submit" class="btn-primary">Send to Students</button>
-                        <p id="assignment-message" class="text-green-600 text-sm font-bold mt-2 display-none"></p>
+                <div class="card">
+                    <h3 class="card-title"><span class="material-symbols-outlined">assignment</span> Create Assignment</h3>
+                    <form id="assignment-add-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Subject</label>
+                                <select id="assignment-subject-id" class="input-field" required></select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Assignment Title</label>
+                                <input type="text" id="assignment-title" class="input-field" placeholder="e.g. Chapter 3 Exercise" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Due Date</label>
+                                <input type="date" id="assignment-due-date" class="input-field" required>
+                            </div>
+                            <div class="form-group full">
+                                <label class="form-label">Instructions / Description</label>
+                                <textarea id="assignment-description" class="input-field" placeholder="Describe the assignment..."></textarea>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary"><span class="material-symbols-outlined">send</span> Post Assignment</button>
+                        </div>
                     </form>
+                </div>
+                <div class="card">
+                    <h3 class="card-title"><span class="material-symbols-outlined">checklist</span> All Assignments</h3>
+                    <div class="table-wrap">
+                        <table id="assignments-table">
+                            <thead><tr><th>Title</th><th>Subject</th><th>Due Date</th><th>Action</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
+            <!-- ATTENDANCE -->
             <div id="attendance" class="section">
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-surface-container max-w-xl">
-                    <h3 class="font-headline text-xl font-bold mb-6 flex items-center gap-2"><span
-                            class="material-symbols-outlined text-[#00A3C1]">how_to_reg</span> Daily Attendance</h3>
-                    <form id="attendance-add-form" class="space-y-6">
-                        <div><label class="block text-sm font-bold mb-2">Subject</label><select
-                                id="attendance-subject-id" class="input-field" required></select></div>
-                        <div><label class="block text-sm font-bold mb-2">Student</label><select
-                                id="attendance-student-id" class="input-field" required></select></div>
-                        <div><label class="block text-sm font-bold mb-2">Date</label><input type="date"
-                                id="attendance-date" class="input-field" required></div>
-                        <div>
-                            <label class="block text-sm font-bold mb-2">Status</label>
-                            <select id="attendance-status" class="input-field font-bold" required>
-                                <option value="Present" class="text-green-600">Present</option>
-                                <option value="Absent" class="text-red-600">Absent</option>
-                                <option value="Late" class="text-yellow-600">Late</option>
-                            </select>
+                <div class="card">
+                    <h3 class="card-title"><span class="material-symbols-outlined">fact_check</span> Mark Attendance</h3>
+                    <form id="attendance-add-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Student</label>
+                                <select id="attendance-student-id" class="input-field" required></select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Date</label>
+                                <input type="date" id="attendance-date" class="input-field" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Status</label>
+                                <select id="attendance-status" class="input-field" required>
+                                    <option value="Present">Present</option>
+                                    <option value="Absent">Absent</option>
+                                    <option value="Late">Late</option>
+                                </select>
+                            </div>
                         </div>
-                        <button type="submit" class="btn-primary">Log Attendance</button>
-                        <p id="attendance-message" class="text-[#00A3C1] font-bold text-center"></p>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary"><span class="material-symbols-outlined">check_circle</span> Log Attendance</button>
+                        </div>
                     </form>
+                </div>
+                <div class="card">
+                    <h3 class="card-title"><span class="material-symbols-outlined">history</span> Attendance Log</h3>
+                    <div class="table-wrap">
+                        <table id="attendance-table">
+                            <thead><tr><th>Student</th><th>Date</th><th>Status</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
+            <!-- GRADES -->
             <div id="grades" class="section">
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-surface-container max-w-2xl">
-                    <h3 class="font-headline text-xl font-bold mb-6 flex items-center gap-2"><span
-                            class="material-symbols-outlined text-[#00A3C1]">grade</span> Post a Grade</h3>
-                    <form id="grade-add-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="md:col-span-2"><label class="block text-sm font-bold mb-2">Student</label><select
-                                id="student-id" class="input-field" required></select></div>
-                        <div class="md:col-span-2"><label class="block text-sm font-bold mb-2">Subject</label><select
-                                id="subject-id" class="input-field" required></select></div>
-                        <div><label class="block text-sm font-bold mb-2">Marks Obtained</label><input type="number"
-                                id="marks-obtained" class="input-field" required></div>
-                        <div><label class="block text-sm font-bold mb-2">Total Marks</label><input type="number"
-                                id="total-marks" class="input-field" required></div>
-                        <div><label class="block text-sm font-bold mb-2">Grade (e.g. A+)</label><input type="text"
-                                id="grade" class="input-field" required></div>
-                        <div><label class="block text-sm font-bold mb-2">Remarks</label><input type="text" id="remarks"
-                                class="input-field"></div>
-                        <div class="md:col-span-2 pt-2"><button type="submit" class="btn-primary">Post Grade</button>
+                <div class="card">
+                    <h3 class="card-title"><span class="material-symbols-outlined">workspace_premium</span> Post a Grade</h3>
+                    <form id="grade-add-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Student</label>
+                                <select id="grade-student-id" class="input-field" required></select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Subject</label>
+                                <select id="grade-subject-id" class="input-field" required></select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Marks Obtained</label>
+                                <input type="number" id="marks-obtained" class="input-field" placeholder="e.g. 85" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Total Marks</label>
+                                <input type="number" id="total-marks" class="input-field" placeholder="e.g. 100" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Grade</label>
+                                <input type="text" id="grade-val" class="input-field" placeholder="e.g. A+" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Remarks</label>
+                                <input type="text" id="remarks" class="input-field" placeholder="Optional">
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary"><span class="material-symbols-outlined">grade</span> Submit Grade</button>
                         </div>
                     </form>
                 </div>
+                <div class="card">
+                    <h3 class="card-title"><span class="material-symbols-outlined">leaderboard</span> Grade Records</h3>
+                    <div class="table-wrap">
+                        <table id="grades-table">
+                            <thead><tr><th>Student</th><th>Subject</th><th>Marks</th><th>Grade</th><th>Remarks</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-        </main>
-    </div>
 
-    <script>
-        // Tab Switching Logic
-        const titles = {
-            'dashboard': 'Overview Dashboard',
-            'students': 'Student Directory',
-            'subjects': 'Curriculum Subjects',
-            'lessons': 'Course Lessons',
-            'enrollments': 'Student Enrollments',
-            'assignments': 'Manage Assignments',
-            'attendance': 'Attendance Records',
-            'grades': 'Gradebook'
-        };
+        </div><!-- /page-body -->
+    </main>
+</div><!-- /app-shell -->
 
-        function showSection(sectionId, element) {
-            document.querySelectorAll('.section').forEach(sec => {
-                sec.classList.remove('active');
-                sec.style.display = 'none'; // Force hide before re-triggering animation
-                // Trigger reflow
-                void sec.offsetWidth;
-            });
-            const activeSec = document.getElementById(sectionId);
-            activeSec.style.display = 'block';
-            activeSec.classList.add('active');
+<!-- Particles.js library -->
+<script src="../particles.js"></script>
 
-            document.querySelectorAll('.sidebar-link').forEach(link => link.classList.remove('active'));
-            if (element) element.classList.add('active');
-
-            document.getElementById('page-title').textContent = titles[sectionId] || 'Management Portal';
+<!-- Canvas particles fallback -->
+<script>
+(function(){
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H, pts = [];
+    function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize); resize();
+    for(let i=0;i<55;i++) pts.push({
+        x:Math.random()*W, y:Math.random()*H,
+        r:Math.random()*1.8+.4,
+        vx:(Math.random()-.5)*.3, vy:(Math.random()-.5)*.3,
+        a:Math.random()*.35+.07
+    });
+    function draw(){
+        ctx.clearRect(0,0,W,H);
+        for(let i=0;i<pts.length;i++){
+            for(let j=i+1;j<pts.length;j++){
+                const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.sqrt(dx*dx+dy*dy);
+                if(d<120){ ctx.beginPath(); ctx.strokeStyle=`rgba(0,163,193,${.1*(1-d/120)})`; ctx.lineWidth=.6; ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y); ctx.stroke(); }
+            }
+            ctx.beginPath(); ctx.arc(pts[i].x,pts[i].y,pts[i].r,0,Math.PI*2);
+            ctx.fillStyle=`rgba(0,163,193,${pts[i].a})`; ctx.fill();
+            pts[i].x+=pts[i].vx; pts[i].y+=pts[i].vy;
+            if(pts[i].x<0||pts[i].x>W) pts[i].vx*=-1;
+            if(pts[i].y<0||pts[i].y>H) pts[i].vy*=-1;
         }
+        requestAnimationFrame(draw);
+    }
+    draw();
+})();
+</script>
 
-        // Set today's date automatically on sections
-        document.addEventListener('DOMContentLoaded', () => {
-            const today = new Date().toISOString().split('T')[0];
-            if (document.getElementById('attendance-date')) document.getElementById('attendance-date').value = today;
-        });
+<!-- Section switcher (global) -->
+<script>
+const PAGE_TITLES = {
+    dashboard:'Overview Dashboard', students:'Students', subjects:'Subjects',
+    lessons:'Lessons', enrollments:'Enrollments', assignments:'Assignments',
+    attendance:'Attendance', grades:'Grades'
+};
+function showSection(id, el){
+    document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelectorAll('.sidebar-link').forEach(l=>l.classList.remove('active'));
+    if(el) el.classList.add('active');
+    document.getElementById('page-title').textContent = PAGE_TITLES[id]||id;
+}
+</script>
 
-        async function logout() {
-            await fetch('/api/logout', { method: 'POST' });
-            window.location.href = 'adminlogin.html';
+<!-- Firebase importmap -->
+<script type="importmap">
+{"imports":{
+    "firebase/app":"https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js",
+    "firebase/auth":"https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js",
+    "firebase/firestore":"https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"
+}}
+</script>
+
+<script type="module">
+import { initializeApp }  from "firebase/app";
+import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
+import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp, doc, deleteDoc } from "firebase/firestore";
+
+const firebaseConfig = {
+    apiKey:"AIzaSyAzIhF90avA0snSAOgCqRlKG49lRI2xTuk",
+    authDomain:"mehwish-tutoring.firebaseapp.com",
+    projectId:"mehwish-tutoring",
+    storageBucket:"mehwish-tutoring.appspot.com",
+    messagingSenderId:"163983660579",
+    appId:"1:163983660579:web:3f13ba6f987db6c6ba8396"
+};
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getFirestore(app);
+
+// Auth guard
+onAuthStateChanged(auth, user => {
+    if(!user){ window.location.href='adminlogin.html'; return; }
+    const name = user.email.split('@')[0];
+    document.getElementById('teacher-name').textContent = name;
+    document.getElementById('banner-name').textContent  = name;
+    document.getElementById('attendance-date').valueAsDate = new Date();
+    refreshAllData();
+});
+
+window.logout = () => signOut(auth);
+
+// Toast
+function toast(msg, type='success'){
+    const t = document.createElement('div');
+    t.className=`toast ${type}`;
+    const icon = type==='success'?'check_circle':'error';
+    t.innerHTML=`<span class="material-symbols-outlined" style="font-size:19px">${icon}</span>${msg}`;
+    document.body.appendChild(t);
+    setTimeout(()=>t.remove(),3000);
+}
+
+// Load collection into table
+async function loadCol(colName, tableId, rowFn, orderField='createdAt'){
+    try {
+        const snap = await getDocs(query(collection(db,colName), orderBy(orderField,'desc')));
+        const data = snap.docs.map(d=>({id:d.id,...d.data()}));
+        if(tableId){
+            const tbody = document.querySelector(`#${tableId} tbody`);
+            if(tbody) tbody.innerHTML = data.length
+                ? data.map(rowFn).join('')
+                : `<tr><td colspan="10" style="text-align:center;color:#aaa;padding:18px;font-size:13px">No records yet.</td></tr>`;
         }
-    </script>
-    <!-- Attach Core Logic File -->
-    <script src="admin.js"></script>
-    <script src="/particles.js"></script>
+        return data;
+    } catch(e){ console.error(colName,e); return []; }
+}
+
+async function refreshAllData(){
+    const [students, subjects, lessons, assignments] = await Promise.all([
+        loadCol('students','students-table', s=>`
+            <tr>
+                <td><strong>${s.name||'-'}</strong></td>
+                <td>${s.email||'-'}</td>
+                <td>${s.class||'-'}</td>
+                <td><span class="badge badge-green">Active</span></td>
+            </tr>`),
+        loadCol('subjects','subjects-table', s=>`
+            <tr>
+                <td><strong>${s.name||'-'}</strong></td>
+                <td>${s.description||'-'}</td>
+                <td><button class="icon-btn" onclick="window.deleteData('subjects','${s.id}')">
+                    <span class="material-symbols-outlined">delete</span></button></td>
+            </tr>`),
+        loadCol('lessons', null, l=>l),
+        loadCol('assignments','assignments-table', a=>`
+            <tr>
+                <td><strong>${a.title||'-'}</strong></td>
+                <td>${a.subjectName||'-'}</td>
+                <td>${a.dueDate||'-'}</td>
+                <td><button class="icon-btn" onclick="window.deleteData('assignments','${a.id}')">
+                    <span class="material-symbols-outlined">delete</span></button></td>
+            </tr>`, 'createdAt'),
+    ]);
+
+    await Promise.all([
+        loadCol('enrollments','enrollments-table', e=>`
+            <tr>
+                <td>${e.studentName||e.studentId||'-'}</td>
+                <td>${e.subjectName||e.subjectId||'-'}</td>
+                <td>${e.enrolledAt?.toDate?.()?.toLocaleDateString()||'-'}</td>
+            </tr>`,'enrolledAt'),
+        loadCol('attendance','attendance-table', a=>{
+            const b=a.status==='Present'?'badge-green':a.status==='Absent'?'badge-red':'badge-yellow';
+            return `<tr>
+                <td>${a.studentName||'-'}</td>
+                <td>${a.date||'-'}</td>
+                <td><span class="badge ${b}">${a.status||'-'}</span></td>
+            </tr>`;
+        }),
+        loadCol('grades','grades-table', g=>`
+            <tr>
+                <td>${g.studentName||'-'}</td>
+                <td>${g.subjectName||'-'}</td>
+                <td>${g.marksObtained||'-'}/${g.totalMarks||'-'}</td>
+                <td><span class="badge badge-blue">${g.grade||'-'}</span></td>
+                <td>${g.remarks||'-'}</td>
+            </tr>`),
+    ]);
+
+    // Stats
+    document.getElementById('total-students').textContent    = students.length;
+    document.getElementById('total-subjects').textContent    = subjects.length;
+    document.getElementById('total-lessons').textContent     = lessons.length;
+    document.getElementById('total-assignments').textContent = assignments.length;
+
+    // Dropdowns
+    const sOpts   = `<option value="">Select Student</option>`  + students.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
+    const subOpts = `<option value="">Select Subject</option>`  + subjects.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
+
+    ['enroll-student-id','attendance-student-id','grade-student-id'].forEach(id=>{
+        const el=document.getElementById(id); if(el) el.innerHTML=sOpts;
+    });
+    ['lesson-subject-id','enroll-subject-id','assignment-subject-id','grade-subject-id'].forEach(id=>{
+        const el=document.getElementById(id); if(el) el.innerHTML=subOpts;
+    });
+}
+
+window.deleteData = async(col,id)=>{
+    if(confirm('Delete this record?')){
+        await deleteDoc(doc(db,col,id));
+        toast('Deleted'); refreshAllData();
+    }
+};
+
+// Forms
+document.getElementById('student-add-form').onsubmit = async e=>{
+    e.preventDefault();
+    await addDoc(collection(db,'students'),{
+        name: document.getElementById('student-name-input').value,
+        class:document.getElementById('student-class-input').value,
+        email:document.getElementById('student-email-input').value,
+        createdAt:new Date().toISOString()
+    });
+    toast('Student registered!'); e.target.reset(); refreshAllData();
+};
+
+document.getElementById('subject-add-form').onsubmit = async e=>{
+    e.preventDefault();
+    await addDoc(collection(db,'subjects'),{
+        name:       document.getElementById('subject-name').value,
+        description:document.getElementById('subject-description').value,
+        createdAt:  new Date().toISOString()
+    });
+    toast('Subject created!'); e.target.reset(); refreshAllData();
+};
+
+document.getElementById('lesson-add-form').onsubmit = async e=>{
+    e.preventDefault();
+    await addDoc(collection(db,'lessons'),{
+        subjectId:document.getElementById('lesson-subject-id').value,
+        title:    document.getElementById('lesson-title').value,
+        content:  document.getElementById('lesson-content').value,
+        videoUrl: document.getElementById('lesson-video-url').value,
+        createdAt:serverTimestamp()
+    });
+    toast('Lesson published!'); e.target.reset();
+};
+
+document.getElementById('enroll-student-form').onsubmit = async e=>{
+    e.preventDefault();
+    const ss=document.getElementById('enroll-student-id');
+    const su=document.getElementById('enroll-subject-id');
+    await addDoc(collection(db,'enrollments'),{
+        studentId:  ss.value,
+        studentName:ss.options[ss.selectedIndex].text,
+        subjectId:  su.value,
+        subjectName:su.options[su.selectedIndex].text,
+        enrolledAt: serverTimestamp()
+    });
+    toast('Student enrolled!'); e.target.reset();
+};
+
+document.getElementById('assignment-add-form').onsubmit = async e=>{
+    e.preventDefault();
+    const su=document.getElementById('assignment-subject-id');
+    await addDoc(collection(db,'assignments'),{
+        subjectId:  su.value,
+        subjectName:su.options[su.selectedIndex].text,
+        title:      document.getElementById('assignment-title').value,
+        description:document.getElementById('assignment-description').value,
+        dueDate:    document.getElementById('assignment-due-date').value,
+        createdAt:  serverTimestamp()
+    });
+    toast('Assignment posted!'); e.target.reset(); refreshAllData();
+};
+
+document.getElementById('attendance-add-form').onsubmit = async e=>{
+    e.preventDefault();
+    const ss=document.getElementById('attendance-student-id');
+    await addDoc(collection(db,'attendance'),{
+        studentId:  ss.value,
+        studentName:ss.options[ss.selectedIndex].text,
+        date:       document.getElementById('attendance-date').value,
+        status:     document.getElementById('attendance-status').value,
+        createdAt:  serverTimestamp()
+    });
+    toast('Attendance logged!'); e.target.reset();
+    document.getElementById('attendance-date').valueAsDate=new Date();
+    refreshAllData();
+};
+
+document.getElementById('grade-add-form').onsubmit = async e=>{
+    e.preventDefault();
+    const ss=document.getElementById('grade-student-id');
+    const su=document.getElementById('grade-subject-id');
+    await addDoc(collection(db,'grades'),{
+        studentId:    ss.value,
+        studentName:  ss.options[ss.selectedIndex].text,
+        subjectId:    su.value,
+        subjectName:  su.options[su.selectedIndex].text,
+        marksObtained:document.getElementById('marks-obtained').value,
+        totalMarks:   document.getElementById('total-marks').value,
+        grade:        document.getElementById('grade-val').value,
+        remarks:      document.getElementById('remarks').value,
+        createdAt:    serverTimestamp()
+    });
+    toast('Grade submitted!'); e.target.reset(); refreshAllData();
+};
+</script>
+
 </body>
-
 </html>

@@ -5,12 +5,10 @@
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Student Login | Mehwish Online Institute</title>
+  <link rel="icon" type="image/png" href="logo.png" />
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap"
-    rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
   <script id="tailwind-config">
     tailwind.config = {
       darkMode: "class",
@@ -35,35 +33,14 @@
     }
   </script>
   <style>
-    .material-symbols-outlined {
-      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-    }
-
-    .bg-grid-pattern {
-      background-image: radial-gradient(#00A3C1 0.5px, transparent 0.5px);
-      background-size: 24px 24px;
-      opacity: 0.1;
-    }
-
-    .bg-blob {
-      position: absolute;
-      border-radius: 9999px;
-      filter: blur(80px);
-      z-index: -1;
-      opacity: 0.08;
-      background-color: #00A3C1;
-    }
-
-    .glass-panel {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.5);
-    }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .bg-grid-pattern { background-image: radial-gradient(#00A3C1 0.5px, transparent 0.5px); background-size: 24px 24px; opacity: 0.1; }
+    .bg-blob { position: absolute; border-radius: 9999px; filter: blur(80px); z-index: -1; opacity: 0.08; background-color: #00A3C1; }
+    .glass-panel { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.5); }
   </style>
 </head>
 
 <body class="bg-background text-on-surface font-body min-h-screen flex flex-col overflow-x-hidden">
-  <!-- Background Elements -->
   <div class="fixed inset-0 pointer-events-none -z-10">
     <div class="bg-blob w-[500px] h-[500px] -top-32 -left-32"></div>
     <div class="bg-blob w-[600px] h-[600px] bottom-0 -right-32"></div>
@@ -82,8 +59,7 @@
       <div class="absolute top-0 left-0 w-full h-2 bg-[#00A3C1]"></div>
 
       <div class="text-center mb-10">
-        <div
-          class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#00A3C1]/20">
+        <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#00A3C1]/20">
           <span class="material-symbols-outlined text-3xl text-[#00A3C1]">school</span>
         </div>
         <h1 class="font-headline text-3xl font-extrabold text-on-surface mb-2">Student Access</h1>
@@ -94,72 +70,109 @@
         <div>
           <label class="block text-sm font-bold text-on-surface mb-2 font-label" for="login-email">Email Address</label>
           <div class="relative">
-            <span
-              class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline-variant">mail</span>
-            <input id="login-email" type="email" placeholder="student@example.com"
-              class="w-full pl-12 pr-4 py-3 rounded-xl border border-outline-variant focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all"
-              required>
+            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline-variant">mail</span>
+            <input id="login-email" type="email" placeholder="student@example.com" class="w-full pl-12 pr-4 py-3 rounded-xl border border-outline-variant focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all" required>
           </div>
         </div>
 
         <div>
           <label class="block text-sm font-bold text-on-surface mb-2 font-label" for="login-password">Password</label>
           <div class="relative">
-            <span
-              class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline-variant">lock</span>
-            <input id="login-password" type="password" placeholder="••••••••"
-              class="w-full pl-12 pr-4 py-3 rounded-xl border border-outline-variant focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all"
-              required>
+            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline-variant">lock</span>
+            <input id="login-password" type="password" placeholder="••••••••" class="w-full pl-12 pr-4 py-3 rounded-xl border border-outline-variant focus:border-[#00A3C1] focus:ring-2 focus:ring-[#00A3C1]/20 outline-none transition-all" required>
           </div>
         </div>
 
-        <button id="login-btn" type="submit"
-          class="w-full py-4 bg-[#00A3C1] text-white rounded-full font-bold text-lg shadow-lg hover:shadow-[#00A3C1]/30 hover:translate-y-[-1px] transition-all">
+        <button id="login-btn" type="submit" class="w-full py-4 bg-[#00A3C1] text-white rounded-full font-bold text-lg shadow-lg hover:shadow-[#00A3C1]/30 hover:translate-y-[-1px] transition-all">
           Secure Login
         </button>
 
-        <p id="message" class="text-center text-sm font-bold mt-4 text-[#a83836] h-5"></p>
+        <p id="message" class="text-center text-sm font-bold mt-4 min-h-[1.25rem]"></p>
       </form>
 
       <div class="mt-8 text-center text-sm text-on-surface-variant border-t border-surface-container pt-6">
-        <p class="mb-4">New student? <a href="enrollment.html"
-            class="text-[#00A3C1] font-bold text-base hover:underline">Enroll Here</a></p>
+        <p class="mb-4">New student? <a href="enrollment.html" class="text-[#00A3C1] font-bold text-base hover:underline">Enroll Here</a></p>
         <p>Trouble logging in? <span class="text-[#00A3C1] font-bold">Contact your teacher.</span></p>
       </div>
     </div>
   </main>
 
-  <script>
-    document.getElementById('login-form').addEventListener('submit', async (e) => {
+  <script type="module">
+    import { auth, db } from "./firebase.js";
+    import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+    import { doc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+
+    const loginForm = document.getElementById('login-form');
+    const messageElement = document.getElementById('message');
+    const loginBtn = document.getElementById('login-btn');
+
+    loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+
       const email = document.getElementById('login-email').value.trim();
       const password = document.getElementById('login-password').value;
-      const messageElement = document.getElementById('message');
+
+      // UI Loading State
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'Verifying...';
+      messageElement.style.color = '#00687c';
+      messageElement.textContent = 'Checking credentials...';
 
       try {
-        const response = await fetch('/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password, role: 'student' }),
-        });
+        // 1. Authenticate with Firebase Auth
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
 
-        const data = await response.json();
+        // 2. Fetch the student profile with multiple collection fallback
+        // Check "users" first
+        let userRef = doc(db, "users", user.uid);
+        let userSnap = await getDoc(userRef);
 
-        if (response.ok) {
-          messageElement.style.color = '#00687c';
-          messageElement.textContent = 'Verifying credentials...';
-          setTimeout(() => window.location.href = 'dashboard.html', 800);
-        } else {
-          messageElement.style.color = '#a83836';
-          messageElement.textContent = data.message || 'Invalid credentials.';
+        // Check "students" if not found in users
+        if (!userSnap.exists()) {
+          userRef = doc(db, "students", user.uid);
+          userSnap = await getDoc(userRef);
         }
+
+        if (userSnap.exists()) {
+          const userData = userSnap.data();
+          
+          localStorage.setItem('userRole', userData.role || 'student');
+          localStorage.setItem('userName', userData.fullName || userData.name || 'Student');
+
+          // Redirect based on role
+          if (userData.role === 'admin') {
+            window.location.href = 'admin/admin.html';
+          } else {
+            window.location.href = 'dashboard.html';
+          }
+        } else {
+          // --- ROBUST FALLBACK ---
+          // Account exists in Auth but document is missing. 
+          // We let them in anyway, and the Dashboard fallback will handle the UI.
+          console.warn("Auth successful but Firestore document not found.");
+          localStorage.setItem('userRole', 'student');
+          localStorage.setItem('userName', email.split('@')[0]); 
+          window.location.href = 'dashboard.html';
+        }
+
       } catch (error) {
+        console.error('Login error details:', error.code, error.message);
         messageElement.style.color = '#a83836';
-        messageElement.textContent = 'Server error. Is the backend running?';
+        
+        // Handling specific Firebase errors
+        if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
+          messageElement.textContent = 'Invalid email or password. Please try again.';
+        } else if (error.code === 'auth/too-many-requests') {
+          messageElement.textContent = 'Too many failed attempts. Please try again later.';
+        } else {
+          messageElement.textContent = 'Login failed. Error: ' + error.code;
+        }
+        
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'Secure Login';
       }
     });
   </script>
-  <script src="/particles.js"></script>
 </body>
-
 </html>
