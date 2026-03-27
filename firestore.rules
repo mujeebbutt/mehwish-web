@@ -1,55 +1,79 @@
 rules_version = '2';
-
 service cloud.firestore {
   match /databases/{database}/documents {
     
-    // Helper to check if user is admin
+    // ---------- HELPER FUNCTIONS ----------
+    function isLoggedIn() {
+      return request.auth != null;
+    }
+
     function isAdmin() {
-      return request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+      return isLoggedIn() && (
+        request.auth.token.email == 'mujeeb@admin.com' ||
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin'
+      );
     }
 
-    // Helper to check if user is the student owner of the document
-    function isStudentOwner(studentId) {
-      return request.auth != null && request.auth.uid == studentId;
+    function isOwner(data) {
+      return isLoggedIn() && (
+        (data.studentEmail != null && data.studentEmail == request.auth.token.email) ||
+        (data.studentId != null && data.studentId == request.auth.uid) ||
+        (data.email != null && data.email == request.auth.token.email)
+      );
     }
 
-    // Users collection
+    // ---------- USERS & STUDENTS ----------
     match /users/{userId} {
-      allow read: if request.auth != null && (request.auth.uid == userId || isAdmin());
+      allow read, write: if isLoggedIn() && (request.auth.uid == userId || isAdmin());
+    }
+
+    match /students/{docId} {
+      allow read: if isAdmin() || isOwner(resource.data) || request.auth.uid == docId;
       allow write: if isAdmin();
     }
 
-    // Students collection
-    match /students/{studentId} {
-      allow read: if request.auth != null && (isStudentOwner(studentId) || isAdmin());
+    // ---------- ACADEMICS ----------
+    match /subjects/{docId} {
+      allow read: if isLoggedIn();
+      allow write: if isAdmin();
+    }
+    match /lessons/{docId} {
+      allow read: if isLoggedIn();
       allow write: if isAdmin();
     }
 
-    // Courses, Subjects, Lessons, Assignments (Content)
-    match /courses/{courseId} {
-      allow read: if request.auth != null;
-      allow write: if isAdmin();
-    }
-    match /subjects/{subjectId} {
-      allow read: if request.auth != null;
-      allow write: if isAdmin();
-    }
-    match /lessons/{lessonId} {
-      allow read: if request.auth != null;
-      allow write: if isAdmin();
-    }
-    match /assignments/{assignmentId} {
-      allow read: if request.auth != null;
+    // ---------- COLLECTIONS WITH STUDENT FILTERING ----------
+    
+    // Helper for shared student collections
+    match /studentAssignments/{docId} {
+      allow read: if isAdmin() || isOwner(resource.data);
       allow write: if isAdmin();
     }
 
-    // Grades and Attendance (Sensitive Student Data)
-    match /grades/{gradeId} {
-      allow read: if request.auth != null && (resource.data.studentId == request.auth.uid || isAdmin());
+    match /submissions/{docId} {
+      allow read: if isAdmin() || isOwner(resource.data);
+      allow create: if isLoggedIn() && (request.resource.data.studentEmail == request.auth.token.email || request.resource.data.studentId == request.auth.uid);
+      allow update, delete: if isAdmin();
+    }
+
+    match /enrollments/{docId} {
+      allow read: if isAdmin() || isOwner(resource.data);
       allow write: if isAdmin();
     }
-    match /attendance/{attendanceId} {
-      allow read: if request.auth != null && (resource.data.studentId == request.auth.uid || isAdmin());
+
+    match /attendance/{docId} {
+      allow read: if isAdmin() || isOwner(resource.data);
+      allow write: if isAdmin();
+    }
+
+    match /grades/{docId} {
+      allow read: if isAdmin() || isOwner(resource.data);
+      allow write: if isAdmin();
+    }
+
+    match /contacts/{docId} {
+      allow create: if true; 
+      allow read: if isAdmin(); 
       allow write: if isAdmin();
     }
   }

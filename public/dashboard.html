@@ -6,10 +6,12 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Student Dashboard | Mehwish Online Institute</title>
   <link rel="icon" type="image/png" href="logo.png" />
-  <script src="particles.js"></script>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
   <script>
     tailwind.config = {
       darkMode: "class",
@@ -20,7 +22,6 @@
             "primary": "#00687c",
             "background": "#f8f9fa",
             "on-surface": "#2d3335",
-            "outline-variant": "#adb3b5",
             "surface-container": "#ebeef0",
           },
           fontFamily: { "headline": ["Plus Jakarta Sans"], "body": ["Manrope"] },
@@ -29,18 +30,79 @@
     }
   </script>
   <style>
-    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-    .bg-grid-pattern { background-image: radial-gradient(#00A3C1 0.5px, transparent 0.5px); background-size: 24px 24px; opacity: 0.1; }
-    .bg-blob { position: absolute; border-radius: 9999px; filter: blur(80px); z-index: -1; opacity: 0.08; background-color: #00A3C1; }
-    .glass-nav { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .bg-grid-pattern {
+      background-image: radial-gradient(#00A3C1 0.5px, transparent 0.5px);
+      background-size: 24px 24px;
+      opacity: 0.1;
+    }
+
+    .glass-nav {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      z-index: 9999;
+      padding: 13px 20px;
+      border-radius: 12px;
+      color: #fff;
+      font-weight: 800;
+      font-size: 13.5px;
+      animation: slideIn .3s ease;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      z-index: 10000;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(120%);
+        opacity: 0
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1
+      }
+    }
+
+    .toast.success {
+      background: linear-gradient(135deg, #10b981, #059669);
+    }
+
+    .toast.error {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+    }
+
+    /* Loading spinner */
+    .spinner {
+      border: 2px solid #f3f3f3;
+      border-top: 2px solid #00A3C1;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      margin-right: 8px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   </style>
 </head>
 
-<body class="bg-background text-on-surface font-body selection:bg-[#00A3C1]/20 selection:text-[#00A3C1] overflow-x-hidden min-h-screen pb-12">
-
+<body class="bg-background text-on-surface font-body overflow-x-hidden min-h-screen pb-12">
   <div class="fixed inset-0 pointer-events-none -z-10">
-    <div class="bg-blob w-[500px] h-[500px] -top-64 -left-32"></div>
-    <div class="bg-blob w-[600px] h-[600px] top-1/2 -right-64"></div>
     <div class="absolute inset-0 bg-grid-pattern"></div>
   </div>
 
@@ -52,44 +114,59 @@
         </div>
         <div class="text-xl font-extrabold text-[#00A3C1] tracking-tighter font-headline">Student Portal</div>
       </div>
-      <button id="logout-btn" class="flex items-center gap-2 text-on-surface hover:text-[#00A3C1] font-bold text-sm transition-colors">
+      <button id="logout-btn"
+        class="flex items-center gap-2 text-on-surface hover:text-[#00A3C1] font-bold text-sm transition-colors">
         <span class="material-symbols-outlined text-lg">logout</span> Logout
       </button>
     </div>
   </header>
 
   <main class="pt-32 max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
-
     <div class="lg:col-span-1 space-y-8">
-      <div class="bg-white rounded-3xl p-8 shadow-sm border border-surface-container text-center relative overflow-hidden">
+      <div
+        class="bg-white rounded-3xl p-8 shadow-sm border border-surface-container text-center relative overflow-hidden">
         <div class="absolute top-0 left-0 w-full h-2 bg-[#00A3C1]"></div>
-        <div class="w-24 h-24 rounded-full bg-blue-50 text-[#00A3C1] flex items-center justify-center mx-auto mb-4 border-4 border-white shadow-md">
+        <div
+          class="w-24 h-24 rounded-full bg-blue-50 text-[#00A3C1] flex items-center justify-center mx-auto mb-4 border-4 border-white shadow-md">
           <span class="material-symbols-outlined text-5xl">person</span>
         </div>
         <h2 id="student-name" class="font-headline text-2xl font-extrabold mb-1">Loading...</h2>
-        <p id="student-info" class="text-on-surface-variant text-sm font-medium mb-6">Connecting to database...</p>
-
-        <div class="grid grid-cols-2 gap-4 border-t border-surface-container pt-6">
+        <p id="student-info" class="text-on-surface-variant text-sm font-medium mb-6">Connecting...</p>
+        <div class="grid grid-cols-3 gap-2 border-t border-surface-container pt-6">
           <div>
-            <p class="text-[2rem] font-black text-[#00A3C1]" id="user-grade">---</p>
-            <p class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Class</p>
+            <p class="text-[1.5rem] font-black text-[#00A3C1]" id="user-grade">---</p>
+            <p class="text-[10px] font-bold text-on-surface-variant uppercase">Class</p>
           </div>
           <div>
-            <p class="text-[2rem] font-black text-amber-500" id="stats-pending">0</p>
-            <p class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Pending Work</p>
+            <p class="text-[1.5rem] font-black text-amber-500" id="stats-pending">0</p>
+            <p class="text-[10px] font-bold text-on-surface-variant uppercase">Work</p>
+          </div>
+          <div>
+            <p class="text-[1.5rem] font-black text-green-600" id="stats-attendance">0%</p>
+            <p class="text-[10px] font-bold text-on-surface-variant uppercase">Attd.</p>
           </div>
         </div>
       </div>
 
-      <div class="bg-white rounded-3xl p-8 shadow-sm border border-surface-container">
-        <div class="flex items-center gap-3 mb-6">
-          <span class="material-symbols-outlined text-[#00A3C1]">video_library</span>
-          <h3 class="font-headline text-xl font-bold">Quick Details</h3>
+      <!-- Attendance Card -->
+      <div class="bg-white rounded-3xl p-6 shadow-sm border border-surface-container">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="material-symbols-outlined text-[#00A3C1]">fact_check</span>
+          <h3 class="font-headline font-bold">Attendance</h3>
         </div>
-        <div class="space-y-4 text-sm">
-          <div class="flex justify-between border-b pb-2"><span class="text-gray-400">Status:</span><span class="font-bold text-green-600">Active</span></div>
-          <div class="flex justify-between border-b pb-2"><span class="text-gray-400">Focus:</span><span id="user-focus" class="font-bold">---</span></div>
-          <div id="user-phone" class="text-center pt-2 font-bold text-primary">---</div>
+        <div id="attendance-list" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+          <p class="text-xs text-center py-4 text-on-surface-variant">Loading records...</p>
+        </div>
+      </div>
+
+      <!-- Grades Card -->
+      <div class="bg-white rounded-3xl p-6 shadow-sm border border-surface-container">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="material-symbols-outlined text-[#00A3C1]">workspace_premium</span>
+          <h3 class="font-headline font-bold">Grades / Results</h3>
+        </div>
+        <div id="grades-list" class="space-y-3">
+          <p class="text-xs text-center py-4 text-on-surface-variant">No grades posted yet.</p>
         </div>
       </div>
     </div>
@@ -97,7 +174,7 @@
     <div class="lg:col-span-2 space-y-8">
       <div class="bg-white rounded-3xl p-8 shadow-sm border border-surface-container">
         <div class="flex items-center gap-3 mb-6 border-b border-surface-container pb-4">
-          <span class="material-symbols-outlined text-error text-2xl">assignment_late</span>
+          <span class="material-symbols-outlined text-[#00A3C1] text-2xl">assignment</span>
           <h3 class="font-headline text-2xl font-bold">Assigned Work</h3>
         </div>
         <div id="assignments-container" class="space-y-4">
@@ -105,15 +182,41 @@
         </div>
       </div>
     </div>
-
   </main>
+
+  <div id="task-modal"
+    class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl border border-surface-container overflow-hidden">
+      <div class="bg-[#00A3C1] h-2 w-full"></div>
+      <div class="p-6">
+        <div class="flex justify-between items-start mb-4">
+          <h3 id="modal-title" class="font-headline text-2xl font-extrabold text-on-surface">Task Details</h3>
+          <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600"><span
+              class="material-symbols-outlined">close</span></button>
+        </div>
+        <div id="modal-content" class="space-y-3 text-sm mb-6"></div>
+
+        <div class="border-t pt-4">
+          <h4 class="font-bold mb-2">Submit Your Work</h4>
+          <input type="file" id="submit-file" accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png"
+            class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#00A3C1]/10 file:text-[#00A3C1] hover:file:bg-[#00A3C1]/20" />
+          <div id="file-info" class="text-xs text-gray-500 mt-1 hidden"></div>
+          <button id="upload-btn"
+            class="w-full mt-4 bg-[#00A3C1] text-white py-3 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-[#0080a0] transition disabled:opacity-50 disabled:cursor-not-allowed">
+            <span class="material-symbols-outlined text-sm">cloud_upload</span> Submit Work
+          </button>
+          <div id="upload-status" class="mt-2 text-xs text-center hidden"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-    import { getFirestore, doc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, collection, query, where, getDocs, addDoc, serverTimestamp, updateDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-storage.js";
 
-    // Firebase configuration (same as your project)
     const firebaseConfig = {
       apiKey: "AIzaSyAzIhF90avA0snSAOgCqRlKG49lRI2xTuk",
       authDomain: "mehwish-tutoring.firebaseapp.com",
@@ -123,290 +226,342 @@
       appId: "1:163983660579:web:3f13ba6f987db6c6ba8396"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
+    const storage = getStorage(app);
 
-    // ---------- CRITICAL FIX: Multi-collection fallback for student profile ----------
-    // This solves the "Account found, but profile is missing" issue.
-    // It will check both "users" collection (from signup) and "students" collection,
-    // ensuring dashboard always loads student data regardless of where the document is stored.
-    async function fetchStudentProfile(uid) {
-      // Try "users" collection first (this matches the login script's original save location)
-      let userRef = doc(db, "users", uid);
-      let userSnap = await getDoc(userRef);
-      
-      if (userSnap.exists()) {
-        return { exists: true, data: userSnap.data(), collection: "users" };
-      }
-      
-      // Fallback: try "students" collection (if any registration uses separate collection)
-      let studentRef = doc(db, "students", uid);
-      let studentSnap = await getDoc(studentRef);
-      if (studentSnap.exists()) {
-        return { exists: true, data: studentSnap.data(), collection: "students" };
-      }
-      
-      // If no profile found anywhere, return null
-      return { exists: false, data: null };
+    let currentTask = null;
+    let currentUserEmail = null;
+
+    function toast(msg, type = 'success') {
+      const t = document.createElement('div');
+      t.className = `toast ${type}`;
+      const icon = type === 'success' ? 'check_circle' : 'error';
+      t.innerHTML = `<span class="material-symbols-outlined" style="font-size:19px">${icon}</span>${msg}`;
+      document.body.appendChild(t);
+      setTimeout(() => t.remove(), 3000);
     }
 
-    // Universal data mapper: extracts fields with smart defaults
-    function normalizeStudentData(profileData) {
-      return {
-        name: profileData.fullName || profileData.name || profileData.displayName || "Student",
-        email: profileData.email || profileData.studentEmail || "—",
-        grade: profileData.grade || profileData.classLevel || "N/A",
-        classFocus: profileData.classFocus || profileData.focus || profileData.course || "General",
-        phone: profileData.phone || profileData.contact || "",
-        role: profileData.role || "student"
-      };
-    }
-
-    // Load complete student info and update UI
-    async function loadStudentData(uid, userEmailFromAuth = null) {
-      const profileResult = await fetchStudentProfile(uid);
-      
-      if (!profileResult.exists) {
-        // CRITICAL: Instead of showing error, create a minimal working session
-        // This allows students who only have Firebase Auth but no Firestore doc to still access dashboard.
-        console.warn("No Firestore profile document found. Using auth fallback data.");
-        // Build minimal data using authentication email and fallback name
-        const fallbackName = userEmailFromAuth ? userEmailFromAuth.split('@')[0] : "Learner";
-        const normalized = {
-          name: fallbackName,
-          email: userEmailFromAuth || "student@mehwish.com",
-          grade: "Pending",
-          classFocus: "General",
-          phone: "Update in profile",
-          role: "student"
-        };
-        
-        document.getElementById('student-name').textContent = normalized.name;
-        document.getElementById('student-info').textContent = normalized.email;
-        document.getElementById('user-grade').textContent = normalized.grade;
-        document.getElementById('user-focus').textContent = normalized.classFocus;
-        document.getElementById('user-phone').textContent = normalized.phone;
-        
-        // Also store minimal data in localStorage for any other pages
-        localStorage.setItem('userRole', 'student');
-        localStorage.setItem('userName', normalized.name);
-        return;
-      }
-      
-      const rawData = profileResult.data;
-      const normalized = normalizeStudentData(rawData);
-      
-      // Update all UI elements
-      document.getElementById('student-name').textContent = normalized.name;
-      document.getElementById('student-info').textContent = normalized.email;
-      document.getElementById('user-grade').textContent = normalized.grade;
-      document.getElementById('user-focus').textContent = normalized.classFocus;
-      document.getElementById('user-phone').textContent = normalized.phone;
-      
-      // Store session info for potential use elsewhere
-      localStorage.setItem('userRole', normalized.role);
-      localStorage.setItem('userName', normalized.name);
-    }
-
-    // Load tasks/assignments: supports both "tasks" collection (with studentId) 
-    // and also assignments where student email matches (flexible structure)
-    async function loadWork(uid, userEmail = null) {
-      const container = document.getElementById('assignments-container');
-      container.innerHTML = '<div class="animate-pulse bg-gray-50 h-32 rounded-2xl"></div>';
-      
-      let allTasks = [];
-      
-      // 1. Query tasks using studentId (most common pattern from your dashboard)
-      try {
-        const tasksByUidQuery = query(collection(db, "tasks"), where("studentId", "==", uid));
-        const uidSnapshot = await getDocs(tasksByUidQuery);
-        uidSnapshot.forEach(doc => {
-          allTasks.push({ id: doc.id, ...doc.data() });
-        });
-      } catch (err) {
-        console.warn("Error fetching tasks by studentId:", err);
-      }
-      
-      // 2. If we have userEmail, also try to fetch assignments where studentEmail matches (legacy or alternative)
-      if (userEmail) {
-        try {
-          const tasksByEmailQuery = query(collection(db, "tasks"), where("studentEmail", "==", userEmail));
-          const emailSnapshot = await getDocs(tasksByEmailQuery);
-          emailSnapshot.forEach(doc => {
-            // avoid duplicates by checking id
-            if (!allTasks.some(t => t.id === doc.id)) {
-              allTasks.push({ id: doc.id, ...doc.data() });
-            }
-          });
-        } catch (err) {
-          console.warn("Error fetching tasks by studentEmail:", err);
-        }
-      }
-      
-      // 3. Also try "assignments" collection (some installations use this)
-      try {
-        const assignmentsQuery = query(collection(db, "assignments"), where("studentId", "==", uid));
-        const assignSnapshot = await getDocs(assignmentsQuery);
-        assignSnapshot.forEach(doc => {
-          if (!allTasks.some(t => t.id === doc.id)) {
-            allTasks.push({ id: doc.id, ...doc.data() });
-          }
-        });
-      } catch (err) {
-        // optional collection, ignore error
-      }
-      
-      // Update pending count
-      document.getElementById('stats-pending').textContent = allTasks.length;
-      
-      // Clear container and render
-      container.innerHTML = '';
-      
-      if (allTasks.length === 0) {
-        container.innerHTML = `
-          <div class="p-8 text-center bg-surface-container/30 rounded-2xl border border-dashed border-outline-variant">
-            <span class="material-symbols-outlined text-4xl text-outline-variant mb-2">check_circle</span>
-            <p class="text-on-surface-variant font-medium">No pending assignments! ✨</p>
-            <p class="text-xs text-on-surface-variant mt-1">Great job staying on top of your work.</p>
-          </div>
-        `;
-        return;
-      }
-      
-      // Sort tasks: maybe by dueDate or priority
-      allTasks.sort((a, b) => {
-        if (a.dueDate && b.dueDate) return new Date(a.dueDate) - new Date(b.dueDate);
-        if (a.dueDate) return -1;
-        if (b.dueDate) return 1;
-        return 0;
-      });
-      
-      // Render each assignment card
-      allTasks.forEach(task => {
-        const dueText = task.dueDate ? new Date(task.dueDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'No deadline';
-        const status = task.status || 'Pending';
-        const statusColor = status.toLowerCase() === 'completed' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700';
-        const card = document.createElement('div');
-        card.className = 'p-6 border border-surface-container rounded-2xl bg-white hover:shadow-md transition-all duration-200';
-        card.innerHTML = `
-          <div class="flex justify-between items-start mb-3">
-            <h4 class="font-headline font-extrabold text-lg text-on-surface">${escapeHtml(task.title || 'Untitled Task')}</h4>
-            <span class="px-3 py-1 ${statusColor} text-[11px] font-black rounded-full uppercase tracking-wide">${escapeHtml(status)}</span>
-          </div>
-          <p class="text-sm text-on-surface-variant mb-4 leading-relaxed">${escapeHtml(task.description || 'No description provided.')}</p>
-          <div class="flex items-center justify-between border-t pt-4 mt-2">
-            <div class="flex items-center gap-2">
-              <span class="material-symbols-outlined text-sm text-outline-variant">event</span>
-              <p class="text-xs font-semibold text-primary">${escapeHtml(dueText)}</p>
-            </div>
-            <button class="task-detail-btn bg-[#00A3C1] text-white px-5 py-2 rounded-full font-bold text-xs shadow-sm hover:shadow-md transition-all hover:bg-[#0080a0] flex items-center gap-1" data-task='${JSON.stringify(task).replace(/'/g, "&#39;")}'>
-              <span class="material-symbols-outlined text-sm">visibility</span> Details
-            </button>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-      
-      // Attach event listeners to all detail buttons after rendering
-      document.querySelectorAll('.task-detail-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          const taskData = JSON.parse(btn.getAttribute('data-task'));
-          showTaskModal(taskData);
-        });
-      });
-    }
-    
-    // Simple modal for task details (no external library, just dynamic)
-    function showTaskModal(task) {
-      // Remove existing modal if any
-      const existingModal = document.getElementById('task-modal');
-      if (existingModal) existingModal.remove();
-      
-      const modalBackdrop = document.createElement('div');
-      modalBackdrop.id = 'task-modal';
-      modalBackdrop.className = 'fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4 transition-all';
-      modalBackdrop.innerHTML = `
-        <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl transform transition-all scale-100 border border-surface-container overflow-hidden">
-          <div class="bg-[#00A3C1] h-2 w-full"></div>
-          <div class="p-6">
-            <div class="flex justify-between items-start mb-4">
-              <h3 class="font-headline text-2xl font-extrabold text-on-surface">${escapeHtml(task.title || 'Task Details')}</h3>
-              <button id="close-modal-btn" class="text-gray-400 hover:text-gray-600 transition-colors">
-                <span class="material-symbols-outlined">close</span>
-              </button>
-            </div>
-            <div class="space-y-3 text-sm">
-              <p class="text-on-surface-variant"><span class="font-bold text-on-surface">Description:</span><br> ${escapeHtml(task.description || '—')}</p>
-              <p><span class="font-bold text-on-surface">Status:</span> <span class="capitalize font-semibold">${escapeHtml(task.status || 'Pending')}</span></p>
-              <p><span class="font-bold text-on-surface">Due Date:</span> ${task.dueDate ? new Date(task.dueDate).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }) : 'Not specified'}</p>
-              ${task.teacherNote ? `<p><span class="font-bold text-on-surface">Teacher's Note:</span><br> ${escapeHtml(task.teacherNote)}</p>` : ''}
-              ${task.resourceUrl ? `<p><span class="font-bold text-on-surface">Resource:</span> <a href="${escapeHtml(task.resourceUrl)}" target="_blank" class="text-[#00A3C1] underline">Open Link</a></p>` : ''}
-            </div>
-            <div class="mt-6 flex justify-end">
-              <button id="close-modal-action" class="bg-surface-container text-on-surface-variant px-6 py-2 rounded-full font-bold text-sm hover:bg-outline-variant transition">Close</button>
-            </div>
-          </div>
-        </div>
-      `;
-      document.body.appendChild(modalBackdrop);
-      
-      const closeModal = () => modalBackdrop.remove();
-      modalBackdrop.querySelector('#close-modal-btn')?.addEventListener('click', closeModal);
-      modalBackdrop.querySelector('#close-modal-action')?.addEventListener('click', closeModal);
-      modalBackdrop.addEventListener('click', (e) => { if (e.target === modalBackdrop) closeModal(); });
-    }
-    
-    // Helper to escape HTML to prevent injection
     function escapeHtml(str) {
       if (!str) return '';
-      return str.replace(/[&<>]/g, function(m) {
+      return String(str).replace(/[&<>]/g, function(m) {
         if (m === '&') return '&amp;';
         if (m === '<') return '&lt;';
         if (m === '>') return '&gt;';
         return m;
-      }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-        return c;
       });
     }
-    
-    // Logout handler
-    document.getElementById('logout-btn').addEventListener('click', async () => {
+
+    // Load Student Profile
+    async function loadStudentData(user) {
       try {
-        await signOut(auth);
-        window.location.href = 'login.html';
-      } catch (err) {
-        console.error('Logout error:', err);
-        window.location.href = 'login.html';
+        const studentsQuery = query(collection(db, "students"), where("email", "==", user.email));
+        const studentSnap = await getDocs(studentsQuery);
+        
+        if (!studentSnap.empty) {
+          const studentData = studentSnap.docs[0].data();
+          document.getElementById('student-name').textContent = studentData.name || user.email.split('@')[0];
+          document.getElementById('user-grade').textContent = studentData.class || 'Not Assigned';
+        } else {
+          document.getElementById('student-name').textContent = user.email.split('@')[0];
+          document.getElementById('user-grade').textContent = 'Not Assigned';
+        }
+        document.getElementById('student-info').textContent = user.email;
+      } catch (error) {
+        console.error('Error loading student data:', error);
+        document.getElementById('student-name').textContent = user.email.split('@')[0];
+        document.getElementById('user-grade').textContent = 'Not Assigned';
+        document.getElementById('student-info').textContent = user.email;
       }
-    });
-    
-    // On auth state changed: load dashboard with robust fallback
+    }
+
+    // Check if assignment is already submitted
+    async function checkIfSubmitted(assignmentId, studentEmail) {
+      try {
+        const submissionsQuery = query(
+          collection(db, "submissions"), 
+          where("assignmentId", "==", assignmentId),
+          where("studentEmail", "==", studentEmail)
+        );
+        const snapshot = await getDocs(submissionsQuery);
+        return !snapshot.empty;
+      } catch (error) {
+        console.error('Error checking submission:', error);
+        return false;
+      }
+    }
+
+    // Load Assignments from 'studentAssignments'
+    async function loadWork(email) {
+      const container = document.getElementById('assignments-container');
+      
+      try {
+        console.log('Loading assignments for email:', email);
+        const q = query(collection(db, "studentAssignments"), where("studentEmail", "==", email));
+        const snapshot = await getDocs(q);
+
+        let tasks = [];
+        for (const doc of snapshot.docs) {
+          const data = doc.data();
+          const isSubmitted = await checkIfSubmitted(doc.id, email);
+          tasks.push({ 
+            id: doc.id, 
+            ...data,
+            isSubmitted: isSubmitted
+          });
+        }
+
+        document.getElementById('stats-pending').textContent = tasks.filter(t => !t.isSubmitted).length;
+        
+        if (tasks.length === 0) {
+          container.innerHTML = '<p class="text-center py-10 text-on-surface-variant">✨ No pending work! ✨</p>';
+          return;
+        }
+
+        container.innerHTML = '';
+        tasks.forEach(task => {
+          const div = document.createElement('div');
+          const isSubmitted = task.isSubmitted;
+          const statusClass = isSubmitted ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700';
+          const statusText = isSubmitted ? 'Submitted ✓' : 'Pending';
+          const buttonDisabled = isSubmitted ? 'disabled' : '';
+          const buttonClass = isSubmitted ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#00A3C1] hover:bg-[#00687c]';
+          
+          div.className = 'p-6 border border-surface-container rounded-2xl bg-white hover:shadow-md transition-all';
+          div.innerHTML = `
+            <div class="flex justify-between items-start">
+              <h4 class="font-bold text-lg">${escapeHtml(task.title || task.assignmentTitle || 'Assignment')}</h4>
+              <span class="px-3 py-1 ${statusClass} text-[10px] font-black rounded-full uppercase">${statusText}</span>
+            </div>
+            <p class="text-sm text-on-surface-variant my-3">${escapeHtml(task.description || task.assignmentDescription || 'No description provided')}</p>
+            <div class="flex justify-between items-center pt-4 border-t">
+              <span class="text-xs text-primary font-bold">📅 Due: ${task.dueDate || 'No date specified'}</span>
+              <span class="text-xs text-gray-500">📚 ${escapeHtml(task.subjectName || 'No subject')}</span>
+              <button class="view-btn ${buttonClass} text-white px-4 py-2 rounded-full text-xs font-bold transition" ${buttonDisabled}>
+                ${isSubmitted ? 'Already Submitted' : 'View & Submit'}
+              </button>
+            </div>
+          `;
+          if (!isSubmitted) {
+            div.querySelector('.view-btn').onclick = () => openModal(task);
+          }
+          container.appendChild(div);
+        });
+        
+      } catch (error) {
+        console.error('Error loading assignments:', error);
+        container.innerHTML = '<p class="text-center py-10 text-red-500">❌ Error loading assignments. Please refresh the page.</p>';
+        toast('Failed to load assignments', 'error');
+      }
+    }
+
+    // Modal Logic
+    window.openModal = (task) => {
+      currentTask = task;
+      document.getElementById('modal-title').textContent = task.title || task.assignmentTitle;
+      document.getElementById('modal-content').innerHTML = `
+        <p><strong>📝 Description:</strong><br>${escapeHtml(task.description || task.assignmentDescription || 'N/A')}</p>
+        <p><strong>📚 Subject:</strong> ${escapeHtml(task.subjectName || 'General')}</p>
+        <p><strong>📅 Due Date:</strong> ${task.dueDate || 'Not specified'}</p>
+        <p><strong>📊 Status:</strong> <span class="text-amber-600 font-bold">Pending Submission</span></p>
+      `;
+      document.getElementById('task-modal').classList.remove('hidden');
+      document.getElementById('task-modal').classList.add('flex');
+      document.getElementById('submit-file').value = '';
+      document.getElementById('upload-status').classList.add('hidden');
+      document.getElementById('file-info').classList.add('hidden');
+    };
+
+    window.closeModal = () => {
+      document.getElementById('task-modal').classList.add('hidden');
+      document.getElementById('task-modal').classList.remove('flex');
+      document.getElementById('upload-status').classList.add('hidden');
+      document.getElementById('file-info').classList.add('hidden');
+      document.getElementById('submit-file').value = '';
+      currentTask = null;
+    };
+
+    // File input change handler
+    document.getElementById('submit-file').onchange = (e) => {
+      const file = e.target.files[0];
+      const fileInfo = document.getElementById('file-info');
+      if (file) {
+        const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+        fileInfo.textContent = `Selected: ${file.name} (${fileSizeMB} MB)`;
+        fileInfo.classList.remove('hidden');
+      } else {
+        fileInfo.classList.add('hidden');
+      }
+    };
+
+    // File Upload & Submission Logic
+    document.getElementById('upload-btn').onclick = async () => {
+      const fileInput = document.getElementById('submit-file');
+      const status = document.getElementById('upload-status');
+      const file = fileInput.files[0];
+
+      if (!file) {
+        toast("Please select a file first!", 'error');
+        return;
+      }
+
+      if (!currentTask) {
+        toast("No task selected!", 'error');
+        return;
+      }
+
+      // Check file size (max 10MB)
+      if (file.size > 10 * 1024 * 1024) {
+        toast("File too large! Maximum size is 10MB.", 'error');
+        return;
+      }
+
+      try {
+        status.textContent = "📤 Uploading... Please wait.";
+        status.className = "mt-2 text-xs text-center text-[#00A3C1] block";
+        document.getElementById('upload-btn').disabled = true;
+
+        // Create a unique filename
+        const timestamp = Date.now();
+        const fileName = `${timestamp}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+        
+        // 1. Upload to Storage
+        const storagePath = `submissions/${auth.currentUser.uid}/${fileName}`;
+        const storageRef = ref(storage, storagePath);
+        
+        console.log('Uploading to:', storagePath);
+        const uploadResult = await uploadBytes(storageRef, file);
+        console.log('Upload successful:', uploadResult);
+        
+        const downloadURL = await getDownloadURL(uploadResult.ref);
+        console.log('Download URL:', downloadURL);
+
+        // 2. Save Reference in Firestore
+        const submissionData = {
+          studentEmail: auth.currentUser.email,
+          studentId: auth.currentUser.uid,
+          studentName: document.getElementById('student-name').textContent,
+          assignmentId: currentTask.id,
+          assignmentTitle: currentTask.title || currentTask.assignmentTitle,
+          fileUrl: downloadURL,
+          fileName: file.name,
+          fileSize: file.size,
+          submittedAt: serverTimestamp(),
+          submissionStatus: 'Submitted',
+          status: 'Pending Review'
+        };
+        
+        await addDoc(collection(db, "submissions"), submissionData);
+        
+        // 3. Update the assignment status in studentAssignments (optional)
+        const assignmentRef = doc(db, "studentAssignments", currentTask.id);
+        await updateDoc(assignmentRef, {
+          status: 'Submitted',
+          submittedAt: serverTimestamp()
+        }).catch(err => console.log('Could not update assignment status:', err));
+
+        status.textContent = "✅ Success! Work submitted successfully.";
+        status.className = "mt-2 text-xs text-center text-green-600 block";
+        toast("Work submitted successfully! Your teacher will review it.");
+        
+        setTimeout(() => {
+          closeModal();
+          loadWork(auth.currentUser.email);
+        }, 2000);
+        
+      } catch (err) {
+        console.error('Upload error details:', err);
+        
+        let errorMessage = "Upload failed. ";
+        if (err.code === 'storage/unauthorized') {
+          errorMessage += "You don't have permission to upload files.";
+        } else if (err.code === 'storage/canceled') {
+          errorMessage += "Upload was canceled.";
+        } else if (err.code === 'storage/unknown') {
+          errorMessage += "Network error. Please check your connection.";
+        } else {
+          errorMessage += err.message;
+        }
+        
+        status.textContent = "❌ " + errorMessage;
+        status.className = "mt-2 text-xs text-center text-red-600 block";
+        toast(errorMessage, 'error');
+      } finally {
+        document.getElementById('upload-btn').disabled = false;
+      }
+    };
+
+    // Load Attendance & Grades
+    async function loadSensitiveData(email) {
+      try {
+        // Attendance
+        const attQ = query(collection(db, "attendance"), where("studentEmail", "==", email));
+        const attSnap = await getDocs(attQ);
+        const attList = document.getElementById('attendance-list');
+        attList.innerHTML = '';
+        let present = 0, total = 0;
+        
+        if (attSnap.empty) {
+          attList.innerHTML = '<p class="text-center text-[10px] py-2 text-on-surface-variant">No attendance records yet</p>';
+        } else {
+          attSnap.forEach(doc => {
+            const d = doc.data();
+            total++; 
+            if (d.status === 'Present') present++;
+            const div = document.createElement('div');
+            div.className = 'flex justify-between items-center text-xs p-2 bg-gray-50 rounded-lg';
+            div.innerHTML = `<span>${d.date}</span><span class="font-bold ${d.status === 'Present' ? 'text-green-600' : d.status === 'Late' ? 'text-orange-600' : 'text-red-600'}">${d.status}</span>`;
+            attList.appendChild(div);
+          });
+        }
+        
+        const attendancePercent = total > 0 ? Math.round((present / total) * 100) : 0;
+        document.getElementById('stats-attendance').textContent = attendancePercent + '%';
+
+        // Grades
+        const grdQ = query(collection(db, "grades"), where("studentEmail", "==", email));
+        const grdSnap = await getDocs(grdQ);
+        const grdList = document.getElementById('grades-list');
+        grdList.innerHTML = '';
+        
+        if (grdSnap.empty) {
+          grdList.innerHTML = '<p class="text-center text-[10px] py-2 text-on-surface-variant">No grades posted yet</p>';
+        } else {
+          grdSnap.forEach(doc => {
+            const d = doc.data();
+            const div = document.createElement('div');
+            div.className = 'p-3 border border-surface-container rounded-xl text-xs';
+            div.innerHTML = `
+              <div class="flex justify-between font-bold mb-1"><span>${escapeHtml(d.subjectName)}</span><span class="text-[#00A3C1]">${escapeHtml(d.grade)}</span></div>
+              <div class="flex justify-between text-on-surface-variant"><span>Score: ${d.marksObtained}/${d.totalMarks}</span><span>${escapeHtml(d.remarks || '')}</span></div>
+            `;
+            grdList.appendChild(div);
+          });
+        }
+      } catch (error) {
+        console.error('Error loading attendance/grades:', error);
+      }
+    }
+
+    // Auth Watcher
     onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const userEmail = user.email;
-        // Load student profile from Firestore with multi-collection strategy + fallback
-        await loadStudentData(user.uid, userEmail);
-        // Load assignments/tasks using both uid and email
-        await loadWork(user.uid, userEmail);
+        console.log('=================================');
+        console.log('Student logged in:', user.email);
+        console.log('User UID:', user.uid);
+        console.log('=================================');
+        currentUserEmail = user.email;
+        await loadStudentData(user);
+        await loadWork(user.email);
+        await loadSensitiveData(user.email);
       } else {
-        // No user logged in, redirect to login page
+        console.log('No user logged in, redirecting to login');
         window.location.href = 'login.html';
       }
     });
-    
-    // Optional: add a small style to improve responsiveness
-    const style = document.createElement('style');
-    style.textContent = `
-      .task-detail-btn:active { transform: scale(0.97); }
-      @media (max-width: 768px) {
-        main { padding-left: 1rem; padding-right: 1rem; }
-        .glass-nav { padding-left: 1rem; padding-right: 1rem; }
-      }
-    `;
-    document.head.appendChild(style);
+
+    document.getElementById('logout-btn').onclick = () => signOut(auth);
   </script>
 </body>
 
